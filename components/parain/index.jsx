@@ -180,7 +180,7 @@ const InputWrapperCheckbox = styled.div`
 
 
 const Parain = () => {
-    const [state, setState] = useState(2);
+    const [state, setState] = useState(0);
     const themeContext = useContext(ThemeContext);
     const [button, setButton] = useState(true);
     const [data, setData] = useState({});
@@ -216,14 +216,11 @@ const Parain = () => {
                     }}
                 >
                     {({ errors, values, setFieldValue }) => {
-                        useEffect(() => {
                             if (Object.keys(errors).length === 0) {
                                 setButton(false);
                             } else {
                                 setButton(true);
                             }
-                        }, [values]);
-                        
                         return (
                             <Form style={{ width: '100%' }}>
                                 <Field name="age">

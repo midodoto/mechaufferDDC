@@ -20,11 +20,17 @@ const HeroWrapper = styled.div`
   position: relative;
   h1 {
     padding-top: 12rem;
-    max-width: 75rem;
+    max-width: 80rem;
   }
   h3 {
     padding-top: 1.4rem;
     max-width: 50rem;
+  }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 0rem 2rem;
+    h3 {
+      padding-bottom: 8.4rem;
+    }
   }
 `;
 
@@ -33,8 +39,8 @@ const Hero = () => {
     return (
         <HeroStyle>
             <HeroWrapper>
-                <H1 color={themeContext.colors.white}>Chauffez-vous mieux et moins cher avec MeChauffer.fr</H1>
-                <H3 color={themeContext.colors.white}>Des travaux efficaces, de qualité, un accompagnement de A  à Z ainsi que les meilleures primes vous permettant des travaux à moindre coût.</H3>
+                <H1 color={themeContext.colors.typo}>Chauffez-vous mieux et moins cher avec MeChauffer.fr</H1>
+                <H3 color={themeContext.colors.typo}>Des travaux efficaces, de qualité, un accompagnement de A  à Z ainsi que les meilleures primes vous permettant des travaux à moindre coût.</H3>
                 <ContactTip />
             </HeroWrapper>
         </HeroStyle>

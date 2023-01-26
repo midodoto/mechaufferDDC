@@ -21,12 +21,18 @@ const PartnerStyle = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 3.6rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 0rem 2rem;
+  }
 `;
 
 const Grid = styled.div`
   display : grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 5rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const Partner = () => {

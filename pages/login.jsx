@@ -15,6 +15,9 @@ const LoginStyle = styled.div`
   padding: 7rem 12rem;
   background: ${({ theme }) => theme.colors.blue2};
   min-height: calc(100vh - 9rem);
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -113,8 +116,6 @@ const Login = () => {
                         })
                     }/>
                 </InputWrapper>
-    
-    
                 <InputWrapper>
                     <label htmlFor="password"><Body1 color={themeContext.colors.black}>Password</Body1></label>
                     <input type="password" required name={"password"} id={"password"} value={data.password} onChange={(e) =>
@@ -127,7 +128,7 @@ const Login = () => {
                 <ButtonPrimary type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Login</ButtonPrimary>
             </form>
                 <ForgetMdp>
-                    <Link href={"forgot-passwordr"}>
+                    <Link href={"forgot-password"}>
                         <Body1 fontSize={1.4} color={themeContext.colors.black}>Mot de passe oublier ?</Body1>
                     </Link>
                 </ForgetMdp>

@@ -20,6 +20,10 @@ const ButtonComponent = styled.button`
       color: ${({hoverColor, theme}) => (!hoverColor ? theme.colors.typo : hoverColor)};
     }
   }
+
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    width: 100%;
+  }
 `;
 
 const Text = styled.p``;

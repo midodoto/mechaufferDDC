@@ -12,12 +12,19 @@ const ListHomeStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
   margin: auto;
   padding: 10rem 12rem 1.6rem 12rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 4rem 2rem 1.6rem 2rem;
+  }
 `;
 
 const Left = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12.4rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
 `;
 
 const Li = styled.div`
@@ -34,6 +41,9 @@ const ListHomeWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.blue2};
   border-radius: 4rem;
   padding: 7rem 18rem 7rem 18rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem 7rem 2rem;
+  }
 `;
 
 export const ListHome = () => {

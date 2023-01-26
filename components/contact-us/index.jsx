@@ -23,6 +23,9 @@ const ContactUsStyle = styled.div`
     align-items: center;
     width: 100%;
   }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
+  }
 `;
 
 const FormWrapper = styled.div`
@@ -41,6 +44,10 @@ const Flex = styled.div`
   display: flex;
   gap: 2rem;
   width: 100%;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    flex-direction: column;
+    gap: 0rem;
+  }
 `;
 
 const MessageSent = styled.div`
@@ -55,7 +62,7 @@ const MessageSent = styled.div`
 
 const ContactUs = () => {
     const themeContext = useContext(ThemeContext)
-    const [messageSent, setMessageSent] = useState(true);
+    const [messageSent, setMessageSent] = useState(false);
     return (
         <ContactUsStyle>
             <H2>Nous contacter</H2>

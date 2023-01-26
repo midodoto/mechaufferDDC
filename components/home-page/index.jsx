@@ -24,6 +24,9 @@ const ContentWrapper = styled.div`
   position: relative;
   z-index: 2;
   margin-top: -4rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 0rem;
+  }
 `;
 
 const ContentHomeHeaderStyle = styled.div`
@@ -36,6 +39,13 @@ const ContentHomeHeaderStyle = styled.div`
   padding: 7rem 12rem;
   .label {
     margin-right: 9rem;
+  }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 3rem 2rem 0 2rem;
+    flex-direction: column;
+    .label {
+      margin-right: 0rem;
+    }
   }
 `;
 
@@ -67,6 +77,9 @@ const ValueHomeHeaderStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
   margin: auto;
   padding: 7rem 12rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 0rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -86,6 +99,9 @@ const Wrapper = styled.div`
   h3 {
     margin-bottom: 5rem;
     text-align: center;
+  }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
   }
 `;
 
@@ -126,6 +142,10 @@ const CardLageStyle = styled.div`
   display: flex;
   gap: 7rem;
   filter: drop-shadow(0px 3px 5px rgba(182, 182, 182, 0.2));
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    flex-direction: column;
+    gap: 0rem;
+  }
 `;
 
 
@@ -136,6 +156,11 @@ const CardLage = styled.div`
   flex: 1;
   margin-top: 6rem;
   display: flex;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    flex-direction: column;
+    flex: none;
+    height: 39rem;
+  }
 `;
 
 const Img = styled.div`

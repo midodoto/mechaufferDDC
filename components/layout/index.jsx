@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
                 <Header />
             </HeaderSticky>
             {children}
-            {/*<Footer />*/}
+            <Footer />
         </LayoutWrapper>
     );
 };

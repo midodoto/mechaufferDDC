@@ -1,6 +1,7 @@
 import Link from "next/link.js";
 import React, {useContext, useEffect, useState} from 'react';
 import styled, {ThemeContext} from 'styled-components';
+import {useAuth} from "../../context/AuthContext.js";
 import ButtonPrimary from "../library/button/primary.jsx";
 import BodyMed from "../library/typo/body-med.jsx";
 import Body2 from "../library/typo/body2.jsx";
@@ -10,12 +11,17 @@ import {Form, Formik, Field } from 'formik';
 import * as zod from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import Body from '../library/typo/body1.jsx';
-import Signup from "../signup/index.jsx";
+import eye from '../../public/images/eye.png';
+import Image from "next/image.js";
+import youpi from '../../public/images/homepage_cards/youpi.png';
 
 const ParainStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
   margin: auto;
   padding: 7rem 12rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
+  }
 `;
 
 const Step1 = styled.div`
@@ -38,6 +44,9 @@ const Step1 = styled.div`
       bottom: 1rem;
       color: red;
     }
+  }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    width: 100%;
   }
 `;
 
@@ -66,6 +75,9 @@ const Step2 = styled.div`
       color: red;
     }
   }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    width: 100%;
+  }
 `;
 
 const Step3 = styled.div`
@@ -77,6 +89,9 @@ const Step3 = styled.div`
   }
   button {
     padding: 1.8rem 6rem;
+  }
+  img {
+    margin-bottom: 6rem;
   }
 `;
 
@@ -108,6 +123,12 @@ const InputWrapper = styled.div`
   input[type=number] {
     -moz-appearance: textfield;
   }
+  img {
+    cursor: pointer;
+    position: absolute;
+    right: 2rem;
+    top:1.6rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -127,6 +148,9 @@ const Wrapper = styled.div`
   h3 {
     margin-bottom: 5rem;
     text-align: center;
+  }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
   }
 `;
 
@@ -156,6 +180,9 @@ const InputSelect = styled.div`
   height: 5rem;
   p {
     padding: 1.8rem 4.5rem;
+    @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+      padding: 1.8rem 1.5rem;
+    }
   }
   &:hover {
     background-image: linear-gradient(white, white),
@@ -185,9 +212,26 @@ const Parain = () => {
     const [button, setButton] = useState(true);
     const [data, setData] = useState({});
     const [age, setAge] = useState(null);
+    const { user, signup } = useAuth();
+    const [mdp, setMdp] = useState(true);
+    const [confirmMdp, setConfirmMdp] = useState(true);
     
-    const handleSignupFct = () => {
-        setState(2);
+    
+    
+    const handleSignupParain = async (e) => {
+        e.preventDefault()
+        try {
+            if (data.password === data.confirmPassword) {
+                await signup(data.email, data.password);
+                setState(2);
+            }
+            else
+                throw new Error('password does not match');
+        } catch (err) {
+            console.log(err)
+        }
+        
+        console.log(data)
     }
     
     return (
@@ -339,10 +383,45 @@ const Parain = () => {
             <Step2>
                 <H3>Dernière étape : créez votre compte Parrain MeChauffer</H3>
                 <Body className={"subtitle"}>Vous pouvez retrouver tous les éléments concernant vos dossiers parrainés et suivre leurs avancements,  ainsi que vos prochaines récompenses à débloquer.</Body>
-                <Signup handleSignupFct={handleSignupFct} data={data} />
+                <div>
+                    <form onSubmit={handleSignupParain}>
+                        <InputWrapper>
+                            <input placeholder={"Email"} type="email" required name={"email"} id={"email"} value={data.email} onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    email: e.target.value,
+                                })
+                            }/>
+                        </InputWrapper>
+                        <InputWrapper>
+                            <input placeholder={"Mot de passe"} type={mdp ? "password" : "text"} required name={"password"} id={"password"} value={data.password} onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    password: e.target.value,
+                                })
+                            }/>
+                            <Image onClick={() => setMdp(!mdp)} src={eye} alt={`eye`} width={19} height={15}/>
+                        </InputWrapper>
+                        <InputWrapper>
+                            <input placeholder={"Confirmation du mot de passe"} type={confirmMdp ? "password" : "text"} required name={"confirm-password"} id={"confirm-password"} value={data.confirmPassword} onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    confirmPassword: e.target.value,
+                                })
+                            }/>
+                            <Image onClick={() => setConfirmMdp(!confirmMdp)} src={eye} alt={`eye`} width={19} height={15}/>
+                        </InputWrapper>
+                        <InputWrapperCheckbox>
+                            <input type="checkbox" id="callback" name="callback" value="true" />
+                            <label htmlFor="callback"><BodyMed >Vous acceptez d’être rappelé gratuitement par un de nos experts pour vous accompagner tout au long de votre projet</BodyMed></label>
+                        </InputWrapperCheckbox>
+                        <ButtonPrimary type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Valider</ButtonPrimary>
+                    </form>
+                </div>
             </Step2> : state === 2 &&
                     <Step3>
                         <H2>Félicitations ! votre compte a été créé avec succès</H2>
+                        <Image src={youpi} alt={`youpi`} width={414} height={467}/>
                         <Link href="/login">
                                 <ButtonPrimary  height={"5rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} onClick={() => setState(0)}>Accéder à mon Espace Parrain</ButtonPrimary>
                         </Link>

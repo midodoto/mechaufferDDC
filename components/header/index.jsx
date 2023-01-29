@@ -1,7 +1,7 @@
 import Image from "next/image.js";
 import Link from "next/link.js";
 import {useRouter} from "next/router.js";
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import logo from '/public/images/logo.png';
 import burger from '/public/images/burger.png';
@@ -9,6 +9,7 @@ import Body1 from '../library/typo/body1.jsx';
 import ButtonPrimary from '../library/button/primary.jsx';
 import ButtonConnexion from '../library/button/connexion.jsx';
 import { ThemeContext } from 'styled-components'
+import Menu from './menu.jsx';
 
 const HeaderStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
@@ -67,9 +68,15 @@ const Mobile = styled.div`
   }
 `;
 
+const MobileMenu = styled.div`
+  height: 100vh;
+`;
+
 const Header = () => {
     const themeContext = useContext(ThemeContext)
     const router = useRouter();
+    const [display, setDisplay] = useState(true)
+    const [click, setClick] = useState(false)
     return (
         <HeaderStyle>
             <Desktop>
@@ -106,11 +113,12 @@ const Header = () => {
                 </Link>
             </Desktop>
             <Mobile>
-                <Link href={'/'}>
+                <Link href={'/'} onClick={() => {setDisplay(false)}}>
                     <Image src={logo} alt="logo" width={90} height={90}/>
                 </Link>
-                <Image src={burger} alt="burger" width={24} height={24}/>
+                <Image src={burger} alt="burger" width={24} height={24} onClick={() => {setDisplay(!display); setClick(true)}} />
             </Mobile>
+            <Menu path={router.pathname} display={display} setDisplay={setDisplay} click={click}/>
         </HeaderStyle>
     );
 };

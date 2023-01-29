@@ -382,7 +382,7 @@ const Parain = () => {
             </Step1> : state === 1 ?
             <Step2>
                 <H3>Dernière étape : créez votre compte Parrain MeChauffer</H3>
-                <Body className={"subtitle"}>Vous pouvez retrouver tous les éléments concernant vos dossiers parrainés et suivre leurs avancements,  ainsi que vos prochaines récompenses à débloquer.</Body>
+                <Body className={"subtitle"}>Vous pouvez retrouver tous les éléments concernant vos dossiers parrainés et suivre leurs avancements, ainsi que vos prochaines récompenses à débloquer.</Body>
                 <div>
                     <form onSubmit={handleSignupParain}>
                         <InputWrapper>

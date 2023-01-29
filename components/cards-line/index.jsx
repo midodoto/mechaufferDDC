@@ -24,6 +24,10 @@ const Card = styled.div`
   background-origin: border-box;
   background-clip: content-box, border-box;
   cursor: pointer;
+  width: 40rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    width: 100%;
+  }
   p {
     padding: 1.8rem 6.5rem;
   }

@@ -17,6 +17,16 @@ const Step1Style = styled.div`
   .subtitle {
     margin-bottom: 7.5rem;
   }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    h3 {
+      margin-bottom: 2.5rem;
+      margin-top: 1rem;
+    }
+    .subtitle {
+      margin-bottom: 6.5rem;
+    }
+    gap: 0rem;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -29,6 +39,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 2rem;
 `;
 
 const CardWrapper = styled.div`

@@ -7,7 +7,6 @@ import Body1 from "../library/typo/body1.jsx";
 import Body2 from "../library/typo/body2.jsx";
 import H3 from "../library/typo/h3.jsx";
 import { DevisActions } from '../../store';
-import Signup from "../signup/index.jsx";
 
 const Step11Style = styled.div`
   display: ${({ display }) => display ? 'flex' : 'none'};
@@ -92,6 +91,9 @@ const InputSelect = styled.div`
   height: 5rem;
   p {
     padding: 1.8rem 6.5rem;
+    @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+      padding: 1.8rem 3.5rem;
+    }
   }
   &:hover {
     background-image: linear-gradient(white, white),
@@ -99,17 +101,43 @@ const InputSelect = styled.div`
   }
 `;
 
-const Step11 = ({ display, setStep }) => {
+const Step111 = ({ display, setStep }) => {
     const themeContext = useContext(ThemeContext)
     const dispatch = useDispatch();
-
+    const { OverwriteDevis } = bindActionCreators(DevisActions, dispatch);
+    
+    const devisReducer = useSelector(({ devis }) => devis);
+    const [name, setName] = useState(devisReducer.data && devisReducer.data[10] ? devisReducer.data[10].value.name : null);
+    const [firstname, setFirstname] = useState(devisReducer.data && devisReducer.data[10] ? devisReducer.data[10].value.firstname : null);
+    const [phone, setPhone] = useState(devisReducer.data && devisReducer.data[10] ? devisReducer.data[10].value.phone : null);
+    const [civilite, setCivilite] = useState(devisReducer.data && devisReducer.data[10] ? devisReducer.data[10].value.civilite : null);
+    
     return (
         <Step11Style  display={display}>
-            <H3 color={themeContext.colors.black}>Dernière étape : créez votre compte MeChauffer</H3>
-            <Body2 className={"subtitle"}>Vous pouvez retrouver tous les éléments de votre dossier et suivre chaque étape de votre projet</Body2>
-            <Signup />
+            <H3 color={themeContext.colors.black}>Renseigner vos informations:</H3>
+            <Body2 className={"subtitle"}>Un de nos experts vous contactera pour faire avancer le projet </Body2>
+            <Select>
+                <InputSelect selected={civilite === 'Monsieur'} onClick={() => setCivilite("Monsieur")}>
+                    <Body2>Monsieur</Body2>
+                </InputSelect>
+                <InputSelect selected={civilite === 'Madame'} onClick={() => setCivilite("Madame")}>
+                    <Body2>Madame</Body2>
+                </InputSelect>
+            </Select>
+            <InputWrapper>
+                <input type="text" placeholder={"Nom*"} name={"surface"} id={"surface"} onChange={(e) => setName(e.target.value)} value={name}/>
+            </InputWrapper>
+            <InputWrapper>
+                <input type="text"  placeholder={"Prénom*"} name={"surface"} id={"surface"} onChange={(e) => setFirstname(e.target.value)} value={firstname}/>
+            </InputWrapper>
+            <InputWrapper>
+                <input type="text"  placeholder={"Numéro de téléphone*"} name={"surface"} id={"surface"} onChange={(e) => setPhone(e.target.value)} value={phone}/>
+            </InputWrapper>
+            <ButtonWrapper>
+                <ButtonPrimary onClick={() => {OverwriteDevis({step: 11, data: {key: 'Information', value: {name, firstname, phone, civilite}}}); setStep(12);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!(firstname && name && civilite && phone)}>Continue</ButtonPrimary>
+            </ButtonWrapper>
         </Step11Style>
     );
 };
 
-export default Step11;
+export default Step111;

@@ -15,8 +15,8 @@ import Step7 from "../steps/step7.jsx";
 import Step8 from "../steps/step8.jsx";
 import Step9 from "../steps/step9.jsx";
 import Step10 from "../steps/step10.jsx";
+// import Step111 from "../steps/step11.jsx";
 import Step11 from "../steps/step11.jsx";
-import Step12 from "../steps/step12.jsx";
 
 const DevisWrapper = styled.div`
   min-height: calc(100vh - 9rem);
@@ -28,12 +28,16 @@ const Left = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    display: none;
+  }
 `;
 
 const Right = styled.div`
   flex: 6;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const Back = styled.div`
@@ -58,6 +62,15 @@ const MaxWidth = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 10rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
+  }
+`;
+
+const MobileBack = styled.div`
+  @media ${({ theme }) => theme.breakpoints.tablets} {
+    display: none;
+  }
 `;
 
 const Devis = () => {
@@ -75,7 +88,7 @@ const Devis = () => {
     
     return (
         <DevisWrapper>
-            <ProgressBar currentStep={step} maxStep={10}/>
+            <ProgressBar currentStep={step} maxStep={12}/>
             <MaxWidth>
                 <Left>
                     {step > 1 &&
@@ -95,6 +108,22 @@ const Devis = () => {
                     <MenuLeft state={state} />
                 </Left>
                 <Right>
+                    <MobileBack>
+                        {step > 1 &&
+                            <>
+                                {step === 4 && extraStepChauffage > 1 ?
+                                    <Back onClick={() => {if (extraStepChauffage > 1) setExtraStepChauffage(extraStepChauffage - 1)}}>
+                                        <Image src={arrowBack} alt={`Back button`} width={24} height={24}/>
+                                        <button>Retour</button>
+                                    </Back> :
+                                    <Back onClick={() => {if (step > 1) setStep(step - 1)}}>
+                                        <Image src={arrowBack} alt={`Back button`} width={24} height={24}/>
+                                        <button>Retour</button>
+                                    </Back>
+                                }
+                            </>
+                        }
+                    </MobileBack>
                     <Step1 display={step === 1} setStep={setStep}/>
                     <Step2 display={step === 2} setStep={setStep}/>
                     <Step3 display={step === 3} setStep={setStep}/>
@@ -105,8 +134,8 @@ const Devis = () => {
                     <Step8 display={step === 8} setStep={setStep}/>
                     <Step9 display={step === 9} setStep={setStep}/>
                     <Step10 display={step === 10} setStep={setStep}/>
+                    {/*<Step111 display={step === 11} setStep={setStep}/>*/}
                     <Step11 display={step === 11} setStep={setStep}/>
-                    <Step12 display={step === 12} setStep={setStep}/>
                 </Right>
             </MaxWidth>
         </DevisWrapper>

@@ -1,3 +1,4 @@
+import {useRouter} from "next/router.js";
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../header';
@@ -17,13 +18,17 @@ const HeaderSticky = styled.div`
 `;
 
 const Layout = ({ children }) => {
+    const router = useRouter();
+    
     return (
         <LayoutWrapper>
             <HeaderSticky>
                 <Header />
             </HeaderSticky>
             {children}
-            <Footer />
+            {router.pathname !== '/devis' &&
+                <Footer/>
+            }
         </LayoutWrapper>
     );
 };

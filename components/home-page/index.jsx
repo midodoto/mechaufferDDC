@@ -78,7 +78,7 @@ const ValueHomeHeaderStyle = styled.div`
   margin: auto;
   padding: 7rem 12rem;
   @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
-    padding: 7rem 0rem;
+    padding: 7rem 2rem;
   }
 `;
 

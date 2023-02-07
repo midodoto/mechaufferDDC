@@ -115,11 +115,11 @@ const QuiSommesNous = () => {
             <Description>
                 <H2>Date de création</H2>
                 <H4 fontSize={2.2}>19/12/2019</H4>
-                <Body>Nous proposons diverses solutions pour la rénovation énergétique. L'équipe Mechauffer s'est donnée pour objectif principal de permettre à tous les particuliers d'accéder à l’indépendance énergétique. Notre accompagnement permet de faciliter les démarches administratifs de tous les profils, et ainsi informer les bénéficiaires de leurs droits.</Body>
+                <Body>Nous proposons diverses solutions pour la rénovation énergétique. L&apos;équipe Mechauffer s&apos;est donnée pour objectif principal de permettre à tous les particuliers d&apos;accéder à l’indépendance énergétique. Notre accompagnement permet de faciliter les démarches administratifs de tous les profils, et ainsi informer les bénéficiaires de leurs droits.</Body>
                 <br/>
-                <Body>Dans cette optique, nous recommandons à chaque foyer les solutions permettant l'amélioration énergétique la plus adéquate au logement concerné.</Body>
+                <Body>Dans cette optique, nous recommandons à chaque foyer les solutions permettant l&apos;amélioration énergétique la plus adéquate au logement concerné.</Body>
                 <br/>
-                <Body>L'écologie et réchauffement climatique sont au cœur de nos préoccupations. C'est pour cela qu'à chaque installation réalisée, nous nous engageons à planter 10 arbres grâce à notre partenaire Planete Urgence (mettre lien). C’est le moment d’agir et mettre toutes nos ressources en œuvres pour l’environnement.</Body>
+                <Body>L&apos;écologie et réchauffement climatique sont au cœur de nos préoccupations. C&apos;est pour cela qu&apos;à chaque installation réalisée, nous nous engageons à planter 10 arbres grâce à notre partenaire Planete Urgence (mettre lien). C’est le moment d’agir et mettre toutes nos ressources en œuvres pour l’environnement.</Body>
             </Description>
             <NosSolution>
                 <Wrapper>

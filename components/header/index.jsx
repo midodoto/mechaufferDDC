@@ -85,23 +85,23 @@ const Header = () => {
                 </Link>
                 <ListMenu>
                     <LinkWrapper>
-                        <Link href={'/offres'}>
-                            <Body1 disable={router.pathname !== '/'} color={router.pathname === '/' ? themeContext.colors.primary : themeContext.colors.black}>Nos offres</Body1>
+                        <Link href={'/nos-offres'}>
+                            <Body1 disable={router.pathname !== '/nos-offres'} color={router.pathname === '/nos-offres' ? themeContext.colors.primary : themeContext.colors.black}>Nos offres</Body1>
                         </Link>
                     </LinkWrapper>
                     <LinkWrapper>
-                        <Link href={'/111'}>
-                            <Body1 disable={router.pathname !== '/111'} color={router.pathname === '/111' ? themeContext.colors.primary : themeContext.colors.black}>Aide financière</Body1>
+                        <Link href={'/aide'}>
+                            <Body1 disable={router.pathname !== '/aide'} color={router.pathname === '/aide' ? themeContext.colors.primary : themeContext.colors.black}>Aide financière</Body1>
                         </Link>
                     </LinkWrapper>
                     <LinkWrapper>
-                        <Link href={'/222'}>
-                            <Body1 disable={router.pathname !== '/222'} color={router.pathname === '/222' ? themeContext.colors.primary : themeContext.colors.black}>Conseil travaux</Body1>
+                        <Link href={'/conseil'}>
+                            <Body1 disable={router.pathname !== '/conseil'} color={router.pathname === '/conseil' ? themeContext.colors.primary : themeContext.colors.black}>Conseil travaux</Body1>
                         </Link>
                     </LinkWrapper>
                     <LinkWrapper>
-                        <Link href={'/333'}>
-                            <Body1 disable={router.pathname !== '/333'} color={router.pathname === '/333' ? themeContext.colors.primary : themeContext.colors.black}>Qui sommes-nous</Body1>
+                        <Link href={'/qui-sommes-nous'}>
+                            <Body1 disable={router.pathname !== '/qui-sommes-nous'} color={router.pathname === '/qui-sommes-nous' ? themeContext.colors.primary : themeContext.colors.black}>Qui sommes-nous</Body1>
                         </Link>
                     </LinkWrapper>
                 </ListMenu>

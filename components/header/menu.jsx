@@ -35,24 +35,24 @@ const Menu = ({path, display, click, setDisplay}) => {
                 {/*</HeaderStyle>*/}
                 <NavStyle>
                     <ListStyle>
-                        <ElemStyle onClick={() => dismissMenu(path, '/who-we-are')}>
-                                <Link href={'/offres'}>
-                                    <Body1 disable={path !== '/'} color={path === '/' ? themeContext.colors.primary : themeContext.colors.black}>Nos offres</Body1>
+                        <ElemStyle onClick={() => dismissMenu(path, '/nos-offres')}>
+                                <Link href={'/nos-offres'}>
+                                    <Body1 disable={path !== '/nos-offres'} color={path === '/nos-offres' ? themeContext.colors.primary : themeContext.colors.black}>Nos offres</Body1>
                                 </Link>
                         </ElemStyle>
-                        <ElemStyle onClick={() => dismissMenu(path, '/sectors')}>
-                            <Link href={'/111'}>
-                                <Body1 disable={path !== '/111'} color={path === '/111' ? themeContext.colors.primary : themeContext.colors.black}>Aide financière</Body1>
+                        <ElemStyle onClick={() => dismissMenu(path, '/aide')}>
+                            <Link href={'/aide'}>
+                                <Body1 disable={path !== '/aide'} color={path === '/aide' ? themeContext.colors.primary : themeContext.colors.black}>Aide financière</Body1>
                             </Link>
                         </ElemStyle>
-                        <ElemStyle onClick={() => dismissMenu(path, '/what-we-build')}>
-                            <Link href={'/222'}>
-                                <Body1 disable={path !== '/222'} color={path === '/222' ? themeContext.colors.primary : themeContext.colors.black}>Conseil travaux</Body1>
+                        <ElemStyle onClick={() => dismissMenu(path, '/conseil')}>
+                            <Link href={'/conseil'}>
+                                <Body1 disable={path !== '/conseil'} color={path === '/conseil' ? themeContext.colors.primary : themeContext.colors.black}>Conseil travaux</Body1>
                             </Link>
                         </ElemStyle>
-                        <ElemStyle onClick={() => dismissMenu(path, '/contact-us')}>
-                            <Link href={'/333'}>
-                                <Body1 disable={path !== '/333'} color={path === '/333' ? themeContext.colors.primary : themeContext.colors.black}>Qui sommes-nous</Body1>
+                        <ElemStyle onClick={() => dismissMenu(path, '/qui-sommes-nous')}>
+                            <Link href={'/qui-sommes-nous'}>
+                                <Body1 disable={path !== '/qui-sommes-nous'} color={path === '/qui-sommes-nous' ? themeContext.colors.primary : themeContext.colors.black}>Qui sommes-nous</Body1>
                             </Link>
                         </ElemStyle>
                         <ElemStyle onClick={() => dismissMenu(path, '/login')}>

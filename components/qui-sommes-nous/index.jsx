@@ -36,7 +36,7 @@ const NosSolution = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background: #F7F9FE;
+  background: ${({ theme }) => theme.colors.blue2};
   border-radius: 40px;
   padding: 4.7rem 7.7rem;
   @media ${({ theme }) => theme.breakpoints.tablets_reverse} {

@@ -146,8 +146,8 @@ const Aide = () => {
                     <Text>
                         <Body>Au cours de ces dernières années, les pouvoirs publics ont créé de nombreuses aides. Certaines d’entre elles sont cumulables avec la Prime MeChauffer. A savoir :</Body>
                         <Ul>
-                            <Li>MaPrimeRénov' et MaPrimeRénov' Sérénité</Li>
-                            <Li>l'Éco-Prêt à Taux Zéro (Éco PTZ) </Li>
+                            <Li>MaPrimeRénov’ et MaPrimeRénov’ Sérénité</Li>
+                            <Li>l’Éco-Prêt à Taux Zéro (Éco PTZ) </Li>
                             <Li>LaTVAà5,5%</Li>
                             <Li>Les aides de votre localité</Li>
                         </Ul>
@@ -192,7 +192,7 @@ const Aide = () => {
             <Footer>
                 <FooterWrapper>
                     <H2>Logements de moins de deux ans non-éligibles ?</H2>
-                    <Body>Le logement concerné par les travaux doit avoir été construit plus de 2 ans avant la date de signature de quelconque devis. Certains travaux ne sont éligibles à la Prime MeChauffer uniquement dans le cas où ils sont réalisés dans une maison individuelle (par exemple l'installation d'un poêle à bois, d’un chauffe-eau thermodynamique ou solaire, d’une chaudière biomasse ou l’installation d'un système solaire combiné).</Body>
+                    <Body>Le logement concerné par les travaux doit avoir été construit plus de 2 ans avant la date de signature de quelconque devis. Certains travaux ne sont éligibles à la Prime MeChauffer uniquement dans le cas où ils sont réalisés dans une maison individuelle (par exemple l’installation d’un poêle à bois, d’un chauffe-eau thermodynamique ou solaire, d’une chaudière biomasse ou l’installation d’un système solaire combiné).</Body>
                 </FooterWrapper>
             </Footer>
         

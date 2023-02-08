@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { persistor, store, wrapper } from '../store/store';
 import {PersistGate} from "redux-persist/integration/react";
 
-const noAuthRequired = ['/', '/devis', '/login', '/signup']
+const authRequired = ['/dashboard']
 
 export function App({ Component, pageProps }) {
     const router = useRouter()
@@ -22,12 +22,12 @@ export function App({ Component, pageProps }) {
                           <PersistGate loading={null} persistor={persistor}>
 
                           <AuthContextProvider>
-                          {noAuthRequired.includes(router.pathname) ? (
-                              <Component {...pageProps} />
+                          {authRequired.includes(router.pathname) ? (
+                                  <ProtectedRoute>
+                                      <Component {...pageProps} />
+                                  </ProtectedRoute>
                           ) : (
-                              <ProtectedRoute>
-                                  <Component {...pageProps} />
-                              </ProtectedRoute>
+                              <Component {...pageProps} />
                           )}
                       </AuthContextProvider>
                           </PersistGate>

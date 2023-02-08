@@ -27,10 +27,9 @@ const HeroWrapper = styled.div`
     max-width: 50rem;
   }
   @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
-    padding: 0rem 2rem;
+    padding: 3rem 2rem;
     h1 {
-      font-size: 4rem;
-      line-height: 5rem;
+      margin-bottom: 4rem;
     }
     h3 {
       padding-bottom: 8.4rem;

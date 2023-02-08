@@ -8,6 +8,10 @@ const H2Component = styled.h2`
   font-size: ${({ fontSize }) => (!fontSize ? '3.5' : fontSize)}rem;
   line-height: 5.2rem;
   color: ${({ color, theme }) => (!color ? theme.colors.typo : color)};
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    font-size: 2.8rem;
+    line-height: 4.2rem;
+  }
 `;
 
 const H2 = ({ children, color = '', fontSize = '' }) => <H2Component color={color} fontSize={fontSize}>{children}</H2Component>;

@@ -100,6 +100,7 @@ export const GlobalStyle: any = createGlobalStyle`
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    scroll-behavior:smooth
   }
   
   #__next {

@@ -126,7 +126,7 @@ const Aide = () => {
                 </Flex>
             </Section>
             <Section>
-                <H2>La Prime MeChauffer est-elle cumulable avec d’autres aides ?</H2>
+                <H2>Quels types de profils peuvent bénéficier de la Prime MeChauffer ?</H2>
                 <Flex>
                     <Text>
                         <Body>Celle-ci est accessible à tous, sans condition de ressources. Vous pouvez en bénéficier pour votre résidence principale comme pour votre résidence secondaire, en étant locataire, comme propriétaire occupant ou bailleur.</Body>

@@ -14,6 +14,7 @@ import H3 from '../library/typo/h3.jsx';
 import H4 from '../library/typo/h4.jsx';
 import Body from '../library/typo/body1.jsx';
 import Parain from '../parain';
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 const HomePageWrapper = styled.div``;
 
@@ -188,17 +189,35 @@ const Text = styled.div`
 `;
 
 export const ContentHomeHeader = ({ setPrime }) => {
+    
+    const scroll = () => {
+            scroller.scrollTo('test1', {
+                duration: 800,
+                delay: 0,
+                smooth: 'easeInOutQuart'
+            })
+    }
+    
     return (
         <ContentHomeHeaderStyle>
             <Body2 className="label">Vous souhaitez :</Body2>
-            <ButtonPrime onClick={() => setPrime(true)}>
-                <Image src={prime} alt={`devis`} width={50} height={50}/>
-                <Body2>Calculer votre Prime MeChauffer</Body2>
-            </ButtonPrime>
-            <ButtonCall onClick={() => setPrime(false)}>
-                <Image src={parain} alt={`call`} width={50} height={50}/>
-                <Body2>Parrainer un proche</Body2>
-            </ButtonCall>
+            <Link activeClass="active" className="test1" to="test1" spy={true} smooth={true} duration={500}>
+                    <ButtonPrime onClick={() => setPrime(true)}>
+                        <Image src={prime} alt={`devis`} width={50} height={50}/>
+                        <Element name="test1" className="element" >
+                            <Body2>Calculer votre Prime MeChauffer</Body2>
+                        </Element>
+                    </ButtonPrime>
+            </Link>
+            <Link activeClass="active" className="test1" to="test1" spy={true} smooth={true} duration={500}>
+                <ButtonCall onClick={() => setPrime(false)}>
+                    <Image src={parain} alt={`call`} width={50} height={50}/>
+                    <Element name="test1" className="element" >
+                        <Body2>Parrainer un proche</Body2>
+                    </Element>
+                </ButtonCall>
+            </Link>
+
         </ContentHomeHeaderStyle>
     );
 }

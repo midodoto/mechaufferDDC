@@ -5,7 +5,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
-import { auth } from '../config/firebase'
+import {auth, getUserById} from '../config/firebase'
 
 const AuthContext = createContext({})
 
@@ -16,17 +16,23 @@ export const AuthContextProvider = ({children,}) => {
     const [loading, setLoading] = useState(true)
     
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser({
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName,
-                })
-            } else {
-                setUser(null)
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            try {
+                if (user) {
+                    const userDetail = await getUserById(user.uid);
+                    console.log('userDetail', userDetail)
+                    setUser({
+                        uid: user.uid,
+                        ...userDetail,
+                    })
+                } else {
+                    setUser(null)
+                }
+                setLoading(false)
+            } catch (e) {
+            
             }
-            setLoading(false)
+
         })
         
         return () => unsubscribe()

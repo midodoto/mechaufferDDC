@@ -11,8 +11,8 @@ const ButtonComponent = styled.button`
   border-radius: 3rem;
   width: ${({ width }) => width ? width : 'auto'};
   height: ${({ height }) => height ? height : 'auto'};
-  cursor: ${({ disabled }) => disabled ? 'unset' : 'pointer'};
-  opacity: ${({ disabled }) => disabled ? '0.2' : '1'};
+  cursor: ${({ disabled, loading }) => disabled || loading ? 'unset' : 'pointer'};
+  opacity: ${({ disabled, loading }) => disabled || loading ? '0.2' : '1'};
   filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.07));
   &:hover {
     background: ${({ hoverBgColor, theme }) => (!hoverBgColor ? theme.colors.blue1 : hoverBgColor)};
@@ -31,9 +31,9 @@ const Text = styled.p``;
 /**
  * Primary UI component for user interaction
  */
-export const ButtonPrimary = ({ type = 'button', width = '', height = '', textColor = '', bgColor= '', hoverColor = '', hoverBgColor = '', disabled = false, children, ...props }) => {
+export const ButtonPrimary = ({ loading = false, type = 'button', width = '', height = '', textColor = '', bgColor= '', hoverColor = '', hoverBgColor = '', disabled = false, children, ...props }) => {
     return (
-        <ButtonComponent type="type" width={width} height={height} textColor={textColor} bgColor={bgColor} hoverColor={hoverColor} hoverBgColor={hoverBgColor} disabled={disabled} {...props}>
+        <ButtonComponent type="type" loading={loading} width={width} height={height} textColor={textColor} bgColor={bgColor} hoverColor={hoverColor} hoverBgColor={hoverBgColor} disabled={disabled} {...props}>
             <Text>
                 {children}
             </Text>

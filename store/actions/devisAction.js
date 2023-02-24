@@ -6,3 +6,12 @@ export const OverwriteDevis = (devis) => {
         });
     };
 };
+
+export const InitialState = () => {
+    return (dispatch) => {
+        dispatch({
+            type: 'initial_state',
+            payload: null,
+        });
+    };
+};

@@ -1,8 +1,10 @@
 import Image from "next/image.js";
+import {useRouter} from "next/router.js";
 import React, { useState, useContext } from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {bindActionCreators} from "redux";
 import styled, {ThemeContext} from "styled-components";
+import {createUserDocument} from "../../config/firebase.js";
 import ButtonPrimary from "../library/button/primary.jsx";
 import { useAuth } from '../../context/AuthContext'
 import BodyMed from "../library/typo/body-med.jsx";
@@ -150,6 +152,10 @@ const InputSelect = styled.div`
   }
 `;
 
+const Error = styled.div`
+  color: red;
+`;
+
 
 const Signup = ({ handleSignupFct, dataSignup }) => {
     const { user, signup } = useAuth();
@@ -166,20 +172,28 @@ const Signup = ({ handleSignupFct, dataSignup }) => {
     const [firstname, setFirstname] = useState(null);
     const [phone, setPhone] = useState(null);
     const [civilite, setCivilite] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
     
     
     const handleSignup = async (e) => {
         e.preventDefault()
         try {
             if (data.password === data.confirmPassword) {
-                await signup(data.email, data.password)
+                setLoading(true)
+                const { user } = await signup(data.email, data.password);
+                await createUserDocument(user, {role: 'user', lastname: name, firstname: firstname, phone: phone, civilite: civilite});
+                setLoading(false);
+                router.push('/login')
             }
             else
-                throw new Error('password does not match');
+                setError('Les mots de passes ne sont pas similaire');
         } catch (err) {
-            console.log(err)
+            setError('Cet email est deja utilisé');
+            console.log(err);
+            setLoading(false)
         }
-        
         console.log(data)
     }
     
@@ -217,8 +231,46 @@ const Signup = ({ handleSignupFct, dataSignup }) => {
                 <Step2 display={display === false}>
                     <H3 color={themeContext.colors.black}>Renseigner vos informations:</H3>
                     <Body2 className={"subtitle"}>Un de nos experts vous contactera pour faire avancer le projet </Body2>
+                    <form onSubmit={handleSignup}>
+                        <InputWrapper>
+                            <input placeholder={"Email"} type="email" required name={"email"} id={"email"} value={data.email} onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    email: e.target.value,
+                                })
+                            }/>
+                        </InputWrapper>
+                        <InputWrapper>
+                            <input placeholder={"Mot de passe"} type={mdp ? "password" : "text"} required name={"password"} id={"password"} value={data.password} onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    password: e.target.value,
+                                })
+                            }/>
+                            <Image onClick={() => setMdp(!mdp)} src={eye} alt={`eye`} width={19} height={15}/>
+                        </InputWrapper>
+                        <InputWrapper>
+                            <input placeholder={"Confirmation du mot de passe"} type={confirmMdp ? "password" : "text"} required name={"confirm-password"} id={"confirm-password"} value={data.confirmPassword} onChange={(e) =>
+                                setData({
+                                    ...data,
+                                    confirmPassword: e.target.value,
+                                })
+                            }/>
+                            <Image onClick={() => setConfirmMdp(!confirmMdp)} src={eye} alt={`eye`} width={19} height={15}/>
+                        </InputWrapper>
+                        <InputWrapperCheckbox>
+                            <input type="checkbox" id="callback" name="callback" value="true" />
+                            <label htmlFor="callback"><BodyMed >Vous acceptez d’être rappelé gratuitement par un de nos experts pour vous accompagner tout au long de votre projet</BodyMed></label>
+                        </InputWrapperCheckbox>
+                        {error &&
+                            <Error>
+                                {error}
+                            </Error>
+                        }
+                        <ButtonPrimary loading={loading} type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!(data.email && data.password && data.confirmPassword)}>Valider</ButtonPrimary>
+                    </form>
+
                 </Step2>
-                
             </Wrapper>
         </SignupForm>
     )

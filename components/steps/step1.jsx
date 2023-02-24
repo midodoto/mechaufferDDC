@@ -72,7 +72,7 @@ const Step1 = ({ display, setStep }) => {
                 <Cards cards={cards} setValue={setValue} value={value}/>
             </CardWrapper>
             <ButtonWrapper>
-                <ButtonPrimary onClick={() => {OverwriteDevis({step: 1, data: {key: 'Type', value: value.title}}); setStep(2);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!value}>Continue</ButtonPrimary>
+                <ButtonPrimary onClick={() => {OverwriteDevis({step: 1, data: {key: 'Type', value: value.title}}); setStep(2);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!value.title}>Continue</ButtonPrimary>
             </ButtonWrapper>
         </Step1Style>
     );

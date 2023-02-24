@@ -21,6 +21,8 @@ export const appTheme = {
         blue40: "rgba(55, 73, 87, 0.4)",
         green: "#76C075",
         footer: "#2C3A47",
+        logout: "#d11f1f",
+        logoutHover: "#ec2e2e",
         primary: "linear-gradient(68.05deg, #18A8BC 15.5%, #6AE14C 121.74%)"
     },
     breakpoints: {

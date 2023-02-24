@@ -5,6 +5,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'initial_state':
+            return initialState;
         case 'overwrite_devis':
             console.log(action.payload)
             console.log(state)

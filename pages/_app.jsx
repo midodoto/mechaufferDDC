@@ -4,12 +4,16 @@ import { appTheme, GlobalStyle } from '../themes/theme';
 import Layout from '../components/layout';
 import { AuthContextProvider } from '../context/AuthContext'
 import { useRouter } from 'next/router'
-import ProtectedRoute from '../components/prodected-route'
+import ProtectedRouteUser from '../components/prodected-route/user.jsx'
+import ProtectedRouteParrain from '../components/prodected-route/parrain.jsx'
+import ProtectedRoutePartenaire from '../components/prodected-route/partenaire.jsx'
 import { Provider } from 'react-redux';
 import { persistor, store, wrapper } from '../store/store';
 import {PersistGate} from "redux-persist/integration/react";
 
-const authRequired = ['/dashboard']
+const authRequiredUser = ['/dashboard-user']
+const authRequiredParrain = ['/dashboard']
+const authRequiredPartenaire = ['/dashboard-partenaire']
 
 export function App({ Component, pageProps }) {
     const router = useRouter()
@@ -22,13 +26,21 @@ export function App({ Component, pageProps }) {
                           <PersistGate loading={null} persistor={persistor}>
 
                           <AuthContextProvider>
-                          {authRequired.includes(router.pathname) ? (
-                                  <ProtectedRoute>
+                          {authRequiredUser.includes(router.pathname) ? (
+                                  <ProtectedRouteUser>
                                       <Component {...pageProps} />
-                                  </ProtectedRoute>
-                          ) : (
+                                  </ProtectedRouteUser>
+                          ) : authRequiredParrain.includes(router.pathname) ? (
+                              <ProtectedRouteParrain>
+                                  <Component {...pageProps} />
+                              </ProtectedRouteParrain>
+                          ) : authRequiredPartenaire.includes(router.pathname) ? (
+                              <ProtectedRoutePartenaire>
+                                  <Component {...pageProps} />
+                              </ProtectedRoutePartenaire>
+                          ) :
                               <Component {...pageProps} />
-                          )}
+                          }
                       </AuthContextProvider>
                           </PersistGate>
                       </Provider>

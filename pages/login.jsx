@@ -7,7 +7,7 @@ import Body1 from "../components/library/typo/body1.jsx";
 import Body2 from "../components/library/typo/body1.jsx";
 import H3 from "../components/library/typo/h3.jsx";
 import { useAuth } from '../context/AuthContext'
-
+import {getUserById} from "../config/firebase.js";
 
 const LoginStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
@@ -91,12 +91,20 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         
-        console.log(user)
         try {
-            await login(data.email, data.password)
-            router.push('/dashboard')
+            await login(data.email, data.password);
+            // const userDetail = await getUserById(user.uid);
+            console.log("user", user);
+            
+            if (user.additionalData.role === "user")
+                router.push('/dashboard-user');
+            else if (user.additionalData.role === "parrain")
+                router.push('/dashboard');
+            else
+                router.push('/dashboard-partenaire');
+    
         } catch (err) {
-            console.log(err)
+            console.log("ERRORRR", err);
         }
     }
     

@@ -171,7 +171,9 @@ const Dashboard = () => {
                 </Right>
             </Wrapper>
             {/*<div>Heyyyyy, {user.email}</div>*/}
-            {/*<ButtonPrimary type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false} onClick={(e) => handleLogout(e)}>Logout</ButtonPrimary>*/}
+            <br />
+            <br />
+            <ButtonPrimary type="submit" width={"20rem"} bgColor={themeContext.colors.logout} hoverBgColor={themeContext.colors.logoutHover} hoverColor={themeContext.colors.white} disabled={false} onClick={(e) => handleLogout(e)}>Logout</ButtonPrimary>
         </DashboardStyle>
     );
 };

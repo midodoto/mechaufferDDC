@@ -23,6 +23,9 @@ const DashboardStyle = styled.div`
   margin: auto;
   padding: 7rem 12rem;
   background: ${({ theme }) => theme.colors.blue2};
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
+  }
 `;
 
 const Left = styled.div`

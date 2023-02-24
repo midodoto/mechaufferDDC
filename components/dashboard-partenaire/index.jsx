@@ -17,6 +17,9 @@ const DashboardUserStyle = styled.div`
   margin: auto;
   padding: 7rem 12rem;
   background: ${({ theme }) => theme.colors.blue2};
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 7rem 2rem;
+  }
 `;
 
 const Title = styled.div`
@@ -57,11 +60,11 @@ const DashboardUser = () => {
             <Title>
                 <H3>PARTENAIRE</H3>
                 <Body>Cliquuez sur le bouton “Ajouter une demande” afin de bénéficier de votre première prime</Body>
-                <ButtonWrapper>
-                    <Link href={'/devis'}>
-                        <ButtonPrimary onClick={() => {InitialState();}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Ajouter une demande</ButtonPrimary>
-                    </Link>
-                </ButtonWrapper>
+                {/*<ButtonWrapper>*/}
+                {/*    <Link href={'/devis'}>*/}
+                {/*        <ButtonPrimary onClick={() => {InitialState();}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Ajouter une demande</ButtonPrimary>*/}
+                {/*    </Link>*/}
+                {/*</ButtonWrapper>*/}
             </Title>
             {/*<div>Heyyyyy, {user.email}</div>*/}
             <br />

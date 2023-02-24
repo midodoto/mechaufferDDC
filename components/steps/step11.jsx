@@ -177,6 +177,10 @@ const InputSelect = styled.div`
   }
 `;
 
+const Error = styled.div`
+  color: red;
+`;
+
 const Step11 = ({ display, setStep }) => {
     const dispatch = useDispatch();
     const { user, signup } = useAuth();

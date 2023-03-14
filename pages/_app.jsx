@@ -17,15 +17,16 @@ const authRequiredPartenaire = ['/dashboard-partenaire']
 
 export function App({ Component, pageProps }) {
     const router = useRouter()
+    console.log("HEREEEEe", Component);
 
     return (<>
             <GlobalStyle />
               <ThemeProvider theme={appTheme}>
+              <AuthContextProvider>
                   <Layout>
                       <Provider store={store}>
                           <PersistGate loading={null} persistor={persistor}>
 
-                          <AuthContextProvider>
                           {authRequiredUser.includes(router.pathname) ? (
                                   <ProtectedRouteUser>
                                       <Component {...pageProps} />
@@ -41,10 +42,10 @@ export function App({ Component, pageProps }) {
                           ) :
                               <Component {...pageProps} />
                           }
-                      </AuthContextProvider>
                           </PersistGate>
                       </Provider>
                   </Layout>
+                  </AuthContextProvider>
               </ThemeProvider>
           </>)
 }

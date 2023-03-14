@@ -20,6 +20,7 @@ export const AuthContextProvider = ({children,}) => {
             try {
                 if (user) {
                     const userDetail = await getUserById(user.uid);
+                    console.log("LOGINN", user)
                     console.log('userDetail', userDetail)
                     setUser({
                         uid: user.uid,

@@ -4,7 +4,10 @@ import styled from 'styled-components';
 const ButtonComponent = styled.button`
   background: ${({ bgColor, theme }) => (!bgColor ? theme.colors.blue1 : bgColor)};
   p {
-    color: ${({ textColor, theme }) => (!textColor ? theme.colors.white : textColor)};
+    background: ${({ textColor, theme }) => (!textColor ? theme.colors.white : textColor)};
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
   }
   border: none;
   padding: 1.2rem 2rem;
@@ -17,7 +20,10 @@ const ButtonComponent = styled.button`
   &:hover {
     background: ${({ hoverBgColor, theme }) => (!hoverBgColor ? theme.colors.blue1 : hoverBgColor)};
     p {
-      color: ${({hoverColor, theme}) => (!hoverColor ? theme.colors.typo : hoverColor)};
+      background: ${({ hoverColor, theme }) => (!hoverColor ? theme.colors.white : hoverColor)};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
     }
   }
 

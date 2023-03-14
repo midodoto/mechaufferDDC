@@ -10,6 +10,7 @@ import ButtonPrimary from '../library/button/primary.jsx';
 import ButtonConnexion from '../library/button/connexion.jsx';
 import { ThemeContext } from 'styled-components'
 import Menu from './menu.jsx';
+import {useAuth} from "../../context/AuthContext.js";
 
 const HeaderStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
@@ -77,6 +78,8 @@ const Header = () => {
     const router = useRouter();
     const [display, setDisplay] = useState(true)
     const [click, setClick] = useState(false)
+    const { user, logout } = useAuth()
+
     return (
         <HeaderStyle>
             <Desktop>
@@ -105,9 +108,14 @@ const Header = () => {
                         </Link>
                     </LinkWrapper>
                 </ListMenu>
-                <Link href={'/login'}>
-                    <ButtonConnexion>Connexion</ButtonConnexion>
-                </Link>
+                {console.log("USER", user)}
+                {user ? 
+                                <Link href={ user.additionalData.role === "user" ? '/dashboard-user' : user.additionalData.role === "parrain" ? '/dashboard' : '/dashboard-partenaire'}>
+                                <ButtonConnexion>Espace perso</ButtonConnexion>
+                            </Link>: 
+                                            <Link href={'/login'}>
+                                            <ButtonConnexion>Connexion</ButtonConnexion>
+                                        </Link>}
                 <Link href={'/devis'}>
                     <ButtonPrimary bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>DEMANDER UN DEVIS</ButtonPrimary>
                 </Link>

@@ -310,7 +310,7 @@ export const ValueHomeHeader = () => {
 
 export const HomePage = () => {
     const [prime, setPrime] = useState(true);
-    
+
     return (
         <HomePageWrapper>
             <Hero />

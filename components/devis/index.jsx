@@ -77,15 +77,16 @@ const Devis = () => {
     const devisReducer = useSelector(({devis}) => devis)
     const [state, setState] = useState(1);
     const [extraStepChauffage, setExtraStepChauffage] = useState(1);
-    const [step, setStep] = useState(devisReducer.step + 1);
-    
+    // const [step, setStep] = useState(devisReducer.step + 1);
+    const [step, setStep] = useState(1);
+
     useEffect(() => {
-        if (step >= 7) {
-            setState(2);
-        } else
-            setState(1);
+      if (step >= 7) {
+          setState(2);
+      } else
+          setState(1);
     }, [step]);
-    
+
     return (
         <DevisWrapper>
             <ProgressBar currentStep={step} maxStep={12}/>
@@ -128,7 +129,7 @@ const Devis = () => {
                     <Step2 display={step === 2} setStep={setStep}/>
                     <Step3 display={step === 3} setStep={setStep}/>
                     <Step4 display={step === 4} setStep={setStep} extraStepChauffage={extraStepChauffage} setExtraStepChauffage={setExtraStepChauffage}/>
-                    <Step5 display={step === 5} setStep={setStep} />
+                    <Step5 display={step === 5} setStep={setStep}/>
                     <Step6 display={step === 6} setStep={setStep}/>
                     <Step7 display={step === 7} setStep={setStep}/>
                     <Step8 display={step === 8} setStep={setStep}/>

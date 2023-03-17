@@ -17,8 +17,6 @@ const authRequiredPartenaire = ['/dashboard-partenaire']
 
 export function App({ Component, pageProps }) {
     const router = useRouter()
-    console.log("HEREEEEe", Component);
-
     return (<>
             <GlobalStyle />
               <ThemeProvider theme={appTheme}>
@@ -28,9 +26,9 @@ export function App({ Component, pageProps }) {
                           <PersistGate loading={null} persistor={persistor}>
 
                           {authRequiredUser.includes(router.pathname) ? (
-                                  <ProtectedRouteUser>
-                                      <Component {...pageProps} />
-                                  </ProtectedRouteUser>
+                            <ProtectedRouteUser>
+                                <Component {...pageProps} />
+                            </ProtectedRouteUser>
                           ) : authRequiredParrain.includes(router.pathname) ? (
                               <ProtectedRouteParrain>
                                   <Component {...pageProps} />

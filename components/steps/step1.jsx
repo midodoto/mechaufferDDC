@@ -54,9 +54,7 @@ const Step1 = ({ display, setStep }) => {
     
     const devisReducer = useSelector(({ devis }) => devis);
     const [value, setValue] = useState({title: devisReducer.data && devisReducer.data[0] ? devisReducer.data[0].value : null});
-    
-    console.log('valuvaluevaluevaluevaluee', value)
-    
+        
     const cards = [{
         image: '/images/cards/house.png',
         title: 'Une maison',

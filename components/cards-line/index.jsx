@@ -35,17 +35,19 @@ const Card = styled.div`
     background-image: linear-gradient(white, white),
     ${({ theme }) => theme.colors.primary};
   }
+  opacity: ${({ theme, disable }) => disable ? '0.2' : '1'};
 `;
 
-const Cards = ({cards, setValue, value, height = '', width = ''}) => {
+const Cards = ({cards, setValue, value, height = '', width = '', typeDevis = null}) => {
+
     return (
         <CardsStyle>
             {cards && cards.map((card, index) => {
-                return (
-                    <Card key={index} selected={value && value.title === card.title} height={height} width={width} onClick={() => {setValue(card);}}>
-                        <Body2>{card.title}</Body2>
-                    </Card>
-                )
+              return (
+                <Card key={index} disable={typeDevis && typeDevis.value.find((element) => Array.isArray(element.value) ? element.value.find((elem) => elem.name === card.title) :  element.value.name === card.title) ? true : false} selected={value && value.title === card.title} height={height} width={width} onClick={() => {typeDevis && typeDevis.value.find((element) => Array.isArray(element.value) ? element.value.find((elem) => elem.name === card.title) :  element.value.name === card.title) ? null : setValue(card)}}>
+                    <Body2>{card.title}</Body2>
+                </Card>
+              )
             })}
         </CardsStyle>
     );

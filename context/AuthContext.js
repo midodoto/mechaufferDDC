@@ -20,8 +20,6 @@ export const AuthContextProvider = ({children,}) => {
             try {
                 if (user) {
                     const userDetail = await getUserById(user.uid);
-                    console.log("LOGINN", user)
-                    console.log('userDetail', userDetail)
                     setUser({
                         uid: user.uid,
                         ...userDetail,
@@ -42,10 +40,21 @@ export const AuthContextProvider = ({children,}) => {
     const signup = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
+
     
     const login = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
+
+    const updateUser = async (userId) => {
+        const userDetail = await getUserById(userId);
+        setUser({
+            uid: userId,
+            ...userDetail,
+        })
+    }
+
+
     
     const logout = async () => {
         setUser(null)
@@ -53,7 +62,7 @@ export const AuthContextProvider = ({children,}) => {
     }
     
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout }}>
+        <AuthContext.Provider value={{ user, login, signup, logout, updateUser }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )

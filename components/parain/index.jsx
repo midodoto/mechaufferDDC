@@ -229,9 +229,7 @@ const Parain = () => {
                 throw new Error('password does not match');
         } catch (err) {
             console.log(err)
-        }
-        
-        console.log(data)
+        }        
     }
     
     return (

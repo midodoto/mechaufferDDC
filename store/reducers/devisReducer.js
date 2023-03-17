@@ -8,8 +8,6 @@ const reducer = (state = initialState, action) => {
         case 'initial_state':
             return initialState;
         case 'overwrite_devis':
-            console.log(action.payload)
-            console.log(state)
             let step = action.payload.step;
             if ( action.payload.multipleStep === true)
                 step++;
@@ -17,9 +15,7 @@ const reducer = (state = initialState, action) => {
             if (dataCpy.length === 0 || dataCpy.length < step) {
                 dataCpy.push(action.payload.data)
             } else
-                dataCpy[step - 1] = action.payload.data;
-            console.log("here", {step: step, data: dataCpy});
-            
+                dataCpy[step - 1] = action.payload.data;            
             return {step: step - 1, data: dataCpy};
         default:
             return state;

@@ -87,15 +87,12 @@ const Login = () => {
         email: '',
         password: '',
     })
-    
+
     const handleLogin = async (e) => {
         e.preventDefault()
         
         try {
-            await login(data.email, data.password);
-            // const userDetail = await getUserById(user.uid);
-            console.log("user", user);
-            
+            await login(data.email, data.password);            
             if (user.additionalData.role === "user")
                 router.push('/dashboard-user');
             else if (user.additionalData.role === "parrain")
@@ -104,7 +101,6 @@ const Login = () => {
                 router.push('/dashboard-partenaire');
     
         } catch (err) {
-            console.log("ERRORRR", err);
         }
     }
     

@@ -54,6 +54,9 @@ const Step6 = ({ display, setStep }) => {
     const devisReducer = useSelector(({ devis }) => devis);
     const [value, setValue] = useState({title: devisReducer.data && devisReducer.data[5] ? devisReducer.data[5].value : null});
     
+
+    
+
     const cards = [{
         image: '/images/cards/asap.png',
         title: 'Le plus tôt possible',

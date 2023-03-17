@@ -71,11 +71,14 @@ const CardWrapper = styled.div`
 `;
 
 
-const Cards = ({cards, setValue, value, height = '', width = ''}) => {
+const Cards = ({cards, setValue, value, height = '', width = '', typeDevis = null}) => {
     return (<>
         <Desktop>
             <CardsStyle>
                 {cards && cards.map((card, index) => {
+                  if (typeDevis) {
+
+                  }
                     return (
                         <Card key={index} selected={value.length > 0 && value.find(elem => elem.title === card.title)} height={height} width={width} onClick={() => {
                             if (!value.find(elem => elem.title === card.title))

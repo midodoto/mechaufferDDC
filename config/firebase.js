@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
-import {getFirestore, collection, addDoc, doc, getDoc, setDoc} from "firebase/firestore";
+import {getFirestore, collection, addDoc, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,7 +31,18 @@ export const createUserDocument = async (user, additionalData) => {
             email,
             additionalData
         });
-        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const updateUserDocument = async (user, additionalData) => {
+    if (!user) return;
+    const { email } = user;
+    try {
+        await updateDoc(doc(db, "users", user.uid), {
+            "additionalData.devis": {...additionalData}
+        });
     } catch (e) {
         console.log(e);
     }
@@ -43,7 +54,6 @@ export const getUserById = async (userId) => {
         const docRef = doc(db, "users", userId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
             return docSnap.data();
         } else {
             throw new Error("No such document!")

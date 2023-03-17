@@ -168,7 +168,7 @@ const StaticSection = () => {
 
 const DashboardUser = () => {
     
-    const { user, logout } = useAuth()
+    const { user, logout, updateUser } = useAuth()
     const themeContext = useContext(ThemeContext)
     const [stateMenu, setStateMenu] = useState(0);
     const dispatch = useDispatch();
@@ -187,10 +187,13 @@ const DashboardUser = () => {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        updateUser(user.uid);
+    }, [])
     
     return (
         <DashboardUserStyle>
-            {console.log('user', user)}
             <DashboardUserWrapper>
             {user?.additionalData?.devis ?             
             <Title>
@@ -207,25 +210,52 @@ const DashboardUser = () => {
                 </ButtonWrapper>
             </Title> }
             <WorkWrapper>
-                {user?.additionalData?.devis[4]?.value?.map((type, index) => <Flex key={index}>
-                <Type>
-                    <H4 fontSize="1.8">{type.name}</H4>
-                    <Body fontSize="1.4" color={"rgba(55, 73, 87, 0.4)"}>{type.value.name}</Body>
-                    <WrapperTraitement>
-                        <Body fontSize="1.4">Afin d`accélérer le traitement de votre dossier, nous vous invitons à télécharger les documents requis en cliquant sur le bouton ci-dessous.</Body>
-                    </WrapperTraitement>
-                </Type>
-                <Green>
-                    <GreenWrapper>
-                        <H4 color={themeContext.colors.white}>Votre prime</H4>
-                        <ValidationDoc>
-                            <Body fontSize="1.4" color={themeContext.colors.primary}>Estimation Prime MeChauffer</Body>
-                            <Body fontSize="1.2" color={"rgba(55, 73, 87, 0.4)"}>Documents en cours de validation</Body>
-                        </ValidationDoc>
-                        <Body lineHeight="1.5" fontSize="1.2" color={themeContext.colors.white}> Attention : ne signez pas votre devis avant d’avoir fait votre demande de prime par téléphone auprès d’un conseiller MeChauffer</Body>
-                    </GreenWrapper>
-                </Green>
-                </Flex>)}
+                {user?.additionalData?.devis && user?.additionalData?.devis[4]?.value?.map((type, index) => 
+                    <>
+                        {Array.isArray(type.value) && type.value.map((typeDetail, indexDetail) => <>
+                            <Flex key={index}>
+                            <Type>
+                                <H4 fontSize="1.8">{type.name}</H4>
+                                <Body fontSize="1.4" color={"rgba(55, 73, 87, 0.4)"}>{typeDetail.name}</Body>
+                                <WrapperTraitement>
+                                    <Body fontSize="1.4">Afin d`accélérer le traitement de votre dossier, nous vous invitons à télécharger les documents requis en cliquant sur le bouton ci-dessous.</Body>
+                                </WrapperTraitement>
+                            </Type>
+                            <Green>
+                                <GreenWrapper>
+                                    <H4 color={themeContext.colors.white}>Votre prime</H4>
+                                    <ValidationDoc>
+                                        <Body fontSize="1.4" color={themeContext.colors.primary}>Estimation Prime MeChauffer</Body>
+                                        <Body fontSize="1.2" color={"rgba(55, 73, 87, 0.4)"}>Documents en cours de validation</Body>
+                                    </ValidationDoc>
+                                    <Body lineHeight="1.5" fontSize="1.2" color={themeContext.colors.white}> Attention : ne signez pas votre devis avant d’avoir fait votre demande de prime par téléphone auprès d’un conseiller MeChauffer</Body>
+                                </GreenWrapper>
+                            </Green>
+                        </Flex>                        
+                        </>)}
+                        {!Array.isArray(type.value) && 
+                            <Flex key={index}>
+                                <Type>
+                                    <H4 fontSize="1.8">{type.name}</H4>
+                                    <Body fontSize="1.4" color={"rgba(55, 73, 87, 0.4)"}>{type.value.name}</Body>
+                                    <WrapperTraitement>
+                                        <Body fontSize="1.4">Afin d`accélérer le traitement de votre dossier, nous vous invitons à télécharger les documents requis en cliquant sur le bouton ci-dessous.</Body>
+                                    </WrapperTraitement>
+                                </Type>
+                                <Green>
+                                    <GreenWrapper>
+                                        <H4 color={themeContext.colors.white}>Votre prime</H4>
+                                        <ValidationDoc>
+                                            <Body fontSize="1.4" color={themeContext.colors.primary}>Estimation Prime MeChauffer</Body>
+                                            <Body fontSize="1.2" color={"rgba(55, 73, 87, 0.4)"}>Documents en cours de validation</Body>
+                                        </ValidationDoc>
+                                        <Body lineHeight="1.5" fontSize="1.2" color={themeContext.colors.white}> Attention : ne signez pas votre devis avant d’avoir fait votre demande de prime par téléphone auprès d’un conseiller MeChauffer</Body>
+                                    </GreenWrapper>
+                                </Green>
+                            </Flex>
+                        }
+                    </>
+                )}
 
                 <ButtonWrapper>
                     <ButtonPrimary onClick={onOpenModal} width={"26rem"} textColor={themeContext.colors.primary} bgColor={themeContext.colors.white} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Je télécharge mes documents</ButtonPrimary>
@@ -336,42 +366,26 @@ const ModalContent = ({ open, onCloseModal}) => {
 
 
 
-                if (!event.target.files[0]) {
-                        alert("Please upload an image first!");
-                    }
-                    console.log('file', event.target.files[0]);
-             
-                    const storageRef = ref(storage, `/${user.uid}/${filename}.png`);
-             
-                    // progress can be paused and resumed. It also exposes progress updates.
-                    // Receives the storage reference and the file to upload.
-                    const uploadTask = uploadBytesResumable(storageRef, event.target.files[0]);
-             
-                    uploadTask.on(
-                        "state_changed",
-                        (snapshot) => {
-                            const percent = Math.round(
-                                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                            );
-             
-                            // update progress
-            //                 setPercent(percent);
-                        },
-                        (err) => console.log(err),
-                        () => {
-                            // download url
-                            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+    if (!event.target.files[0]) {
+        alert("Please upload an image first!");
+    }
+    const storageRef = ref(storage, `/${user.uid}/${filename}.png`);
+    const uploadTask = uploadBytesResumable(storageRef, event.target.files[0]);
+    uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+        }, (err) => console.log(err), 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                 if (filename === 'ci')
                 setCi(true);
             else if (filename=== 'impot')
                 setImpot(true);
-                                    console.log("ICI", url);
-
-                            });
-                        }
-                    );
-
-
+            });
+        });
     };
 
 useEffect(() => {
@@ -387,7 +401,6 @@ useEffect(() => {
             setCi(true);
         else if (itemRef.name === 'impot.png')
             setImpot(true);
-        console.log('itemRef', itemRef.name);
         // All the items under listRef.
       });
     }).catch((error) => {

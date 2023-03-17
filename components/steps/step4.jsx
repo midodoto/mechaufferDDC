@@ -147,11 +147,9 @@ const Step4 = ({ display, setStep, extraStepChauffage, setExtraStepChauffage }) 
                 <ButtonWrapper>
                     <ButtonPrimary onClick={() => {
                         if (cards.find(element => value && element.title === value.title)?.extra?.length > 0) {
-                            console.log("BAHHH")
                             setExtraStepChauffage(2);
                             OverwriteDevis({step: 3, multipleStep: true, data: {key: 'Type de chauffage', value: [value.title]}});
                         } else {
-                            console.log("R$R$R$")
                             OverwriteDevis({step: 4, data: {key: 'Type de chauffage', value: [value.title]}});
                             setStep(5);
                         }

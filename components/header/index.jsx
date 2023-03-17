@@ -108,7 +108,6 @@ const Header = () => {
                         </Link>
                     </LinkWrapper>
                 </ListMenu>
-                {console.log("USER", user)}
                 {user ? 
                                 <Link href={ user.additionalData.role === "user" ? '/dashboard-user' : user.additionalData.role === "parrain" ? '/dashboard' : '/dashboard-partenaire'}>
                                 <ButtonConnexion>Espace perso</ButtonConnexion>

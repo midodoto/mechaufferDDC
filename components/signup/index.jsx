@@ -194,7 +194,6 @@ const Signup = ({ handleSignupFct, dataSignup }) => {
             console.log(err);
             setLoading(false)
         }
-        console.log(data)
     }
     
     return (

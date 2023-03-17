@@ -94,7 +94,6 @@ const Step7 = ({ display, setStep }) => {
     const devisReducer = useSelector(({ devis }) => devis);
     const [value, setValue] = useState({title: devisReducer.data && devisReducer.data[6] ? devisReducer.data[6].value : null});
     
-    console.log("VALLL", value);
     const { ref } = usePlacesWidget({
         apiKey: "AIzaSyBONNNhLGUwVS8DpbHQGFJaJCCoLj_6fQU",
         onPlaceSelected: (place) => setValue({title: place.formatted_address}),
@@ -107,10 +106,10 @@ const Step7 = ({ display, setStep }) => {
             <Body2 className={"subtitle"}>Le montant des primes varie en fonction de la localisation du logement</Body2>
             <InputWrapper>
                 <label htmlFor="surface"><Body1 color={themeContext.colors.black}>Adresse</Body1></label>
-                <input ref={ref} type="text" name={"surface"} id={"surface"} onChange={(e) => {console.log("ICICICI", e); setValue({title: e.target.value})}} value={value.title}/>
+                <input ref={ref} type="text" name={"surface"} id={"surface"} onChange={(e) => {setValue({title: e.target.value})}} value={value.title}/>
             </InputWrapper>
             <ButtonWrapper>
-                <ButtonPrimary onClick={() => {console.log("ref", ref); OverwriteDevis({step: 7, data: {key: 'Address', value: value.title}}); setStep(8);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!value.title}>Continue</ButtonPrimary>
+                <ButtonPrimary onClick={() => {OverwriteDevis({step: 7, data: {key: 'Address', value: value.title}}); setStep(8);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!value.title}>Continue</ButtonPrimary>
             </ButtonWrapper>
         </Step7Style>
     );

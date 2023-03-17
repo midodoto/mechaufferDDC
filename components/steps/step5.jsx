@@ -10,6 +10,7 @@ import Body2 from "../library/typo/body2.jsx";
 import H3 from "../library/typo/h3.jsx";
 import {DevisActions} from '../../store';
 import CardsMultiple from '../cards-multiple';
+import {useAuth} from "../../context/AuthContext.js";
 
 const Step5Style = styled.div`
   width: 100%;
@@ -180,7 +181,6 @@ const ExtraStep = ({
     const [multipleStep2, setMultipleStep2] = useState(0);
     const card = cards.extra;
     useEffect(() => {
-        console.log("EXTRAAAA", value);
         if (multipleStep2 === 1 &&
             (
                 (value.extra && value.extra.length === 0) ||
@@ -292,7 +292,6 @@ const ExtraStep = ({
             }
             { multipleStep2 === 1 && value && value.extra && value.extra.length > 0 &&
                 <StepWrapper display={!!value}>
-                    {console.log("WESHHHH", value)}
                     {value && value.extra.length > 0 &&
                         <ExtraStep setMultipleStep={setMultipleStep} multipleStep={multipleStep}
                                    setExtraStep={setExtraStep} extraStep={extraStep}
@@ -306,14 +305,12 @@ const ExtraStep = ({
 };
 
 
-const TypeOfWork = ({setExtraStep, extraStep, OverwriteDevis, devisReducer, cards}) => {
+const TypeOfWork = ({setExtraStep, extraStep, OverwriteDevis, devisReducer, cards, typeDevis}) => {
     const themeContext = useContext(ThemeContext)
     const [value, setValue] = useState(null);
     const [multipleStep, setMultipleStep] = useState(0);
-    
+
     useEffect(() => {
-        console.log("valueee", value)
-        console.log("multipleStep", multipleStep)
         if (multipleStep > 1) {
             setMultipleStep(0)
             setExtraStep(extraStep + 1);
@@ -328,12 +325,12 @@ const TypeOfWork = ({setExtraStep, extraStep, OverwriteDevis, devisReducer, card
                     <H3 color={themeContext.colors.black}>{cards.name}</H3>
                     <Body2 className={"subtitle"}>{cards.subtitle}</Body2>
                     <CardWrapper>
-                        <CardsLine cards={cards.extra} setValue={setValue} value={value} height={17.8} width={26.8}/>
+                        <CardsLine typeDevis={typeDevis} cards={cards.extra} setValue={setValue} value={value} height={17.8} width={26.8}/>
                     </CardWrapper>
                     <ButtonWrapper>
                         <ButtonPrimary onClick={() => {
                             const val = devisReducer.data[4].value;
-                            val[extraStep - 1].value = {name: value.title, value: {}};
+                            val[extraStep - 1].value = [{name: value.title, value: {}}];
                             if (value.extra.length > 0) {
                                 setMultipleStep(1);
                                 OverwriteDevis({step: 4, multipleStep: true, data: {key: cards.name, value: val}});
@@ -371,17 +368,21 @@ const Step5 = ({display, setStep}) => {
     const devisReducer = useSelector(({devis}) => devis);
     const {OverwriteDevis} = bindActionCreators(DevisActions, dispatch);
     const [value, setValue] = useState([]);
-    
+    const [typeDevis, setTypeDevis] = useState(null);
+    const { user } = useAuth();
+
     useEffect(() => {
         if (value.length > 0 && extraStep > value.length) {
             setExtraStep(0)
             setStep(6);
         }
     }, [extraStep]);
-    
+
     useEffect(() => {
-    
-    }, []);
+        if (user && user.additionalData && user.additionalData.devis) {
+            setTypeDevis(user.additionalData.devis[4]);
+        }
+    })
     
     const cards = [
         {
@@ -688,7 +689,7 @@ const Step5 = ({display, setStep}) => {
                 <H3 color={themeContext.colors.black}>Quels travaux souhaitez-vous réaliser dans votre logement ?</H3>
                 <Body2 className={"subtitle"}>Vous pouvez sélectionner plusieurs réponses</Body2>
                 <CardWrapper>
-                    <CardsMultiple cards={cards} setValue={setValue} value={value} height={17.8} width={26.8}/>
+                    <CardsMultiple cards={cards} setValue={setValue} value={value} height={17.8} width={26.8} typeDevis={typeDevis}/>
                 </CardWrapper>
                 <ButtonWrapper>
                     <ButtonPrimary onClick={() => {
@@ -716,7 +717,7 @@ const Step5 = ({display, setStep}) => {
             {value.map((val, index) => {
                 return <StepWrapper display={extraStep-1 === index} key={index}>
                     <TypeOfWork setStep={setStep} setExtraStep={setExtraStep} extraStep={extraStep}
-                                OverwriteDevis={OverwriteDevis} devisReducer={devisReducer} cards={val}/>
+                                OverwriteDevis={OverwriteDevis} devisReducer={devisReducer} cards={val} typeDevis={typeDevis} />
                     
                     {/*<ExtraStep setExtraStep={setExtraStep} extraStep={extraStep} setStep={setStep} OverwriteDevis={OverwriteDevis} devisReducer={devisReducer} cards={val}/>*/}
                 </StepWrapper>

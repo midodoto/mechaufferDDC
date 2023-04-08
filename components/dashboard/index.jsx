@@ -157,7 +157,7 @@ const Dashboard = () => {
                 </Left>
                 <Right>
                     {stateMenu === 0 &&
-                        <TableauDeBord />
+                        <TableauDeBord user={user} />
                     }
                     {stateMenu === 1 &&
                         <Demandes />

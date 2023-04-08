@@ -79,6 +79,10 @@ const Signup = styled.div`
   text-align: center;
 `;
 
+const Error = styled.div`
+  color: red;
+`;
+
 const Login = () => {
     const themeContext = useContext(ThemeContext)
     const router = useRouter()
@@ -88,19 +92,27 @@ const Login = () => {
         password: '',
     })
 
+    const [error, setError] = useState(null);
+
     const handleLogin = async (e) => {
         e.preventDefault()
         
         try {
-            await login(data.email, data.password);            
-            if (user.additionalData.role === "user")
+            const usr = await login(data.email, data.password); 
+            console.log("usr", usr.user.uid);
+
+            const userDetail = await getUserById(usr.user.uid) 
+            console.log("userDetail", userDetail);
+            
+            if (userDetail.additionalData.role === "user")
                 router.push('/dashboard-user');
-            else if (user.additionalData.role === "parrain")
+            else if (userDetail.additionalData.role === "parrain")
                 router.push('/dashboard');
             else
                 router.push('/dashboard-partenaire');
     
         } catch (err) {
+          setError('email ou mot de passe incorect');
         }
     }
     
@@ -136,6 +148,11 @@ const Login = () => {
                         <Body1 fontSize={1.4} color={themeContext.colors.black}>Mot de passe oublier ?</Body1>
                     </Link>
                 </ForgetMdp>
+                {error &&
+                  <Error>
+                      {error}
+                  </Error>
+                }
                 <Signup>
                     <Body1 fontSize={1.4} color={themeContext.colors.black}>Vous n’avez pas encore de compte ? <Link href={"/signup"}>Cliquez-ici</Link> pour en créer un.</Body1>
                 </Signup>

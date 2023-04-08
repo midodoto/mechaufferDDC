@@ -34,6 +34,7 @@ const ContentHomeHeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 4.8rem;
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
   margin: auto;
@@ -41,11 +42,17 @@ const ContentHomeHeaderStyle = styled.div`
   .label {
     margin-right: 9rem;
   }
+  a {
+    flex: 1;
+  }
   @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
     padding: 3rem 2rem 0 2rem;
     flex-direction: column;
     .label {
       margin-right: 0rem;
+    }
+    a {
+      width: 100%;
     }
   }
 `;

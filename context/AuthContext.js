@@ -19,7 +19,9 @@ export const AuthContextProvider = ({children,}) => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             try {
                 if (user) {
+                    console.log("USERRR", user)
                     const userDetail = await getUserById(user.uid);
+                    console.log("userDetail", userDetail)
                     setUser({
                         uid: user.uid,
                         ...userDetail,

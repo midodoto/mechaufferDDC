@@ -10,6 +10,7 @@ import ProtectedRoutePartenaire from '../components/prodected-route/partenaire.j
 import { Provider } from 'react-redux';
 import { persistor, store, wrapper } from '../store/store';
 import {PersistGate} from "redux-persist/integration/react";
+import { useEffect } from 'react';
 
 const authRequiredUser = ['/dashboard-user']
 const authRequiredParrain = ['/dashboard']
@@ -17,6 +18,7 @@ const authRequiredPartenaire = ['/dashboard-partenaire']
 
 export function App({ Component, pageProps }) {
     const router = useRouter()
+
     return (<>
             <GlobalStyle />
               <ThemeProvider theme={appTheme}>

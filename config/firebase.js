@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
-import {getFirestore, collection, addDoc, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+import {getFirestore, collection, addDoc, doc, getDoc, setDoc, updateDoc, query, where, getDocs} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,15 +24,21 @@ export const auth = getAuth();
 export const storage = getStorage(app);
 
 export const createUserDocument = async (user, additionalData) => {
+    console.log("user", user);
+    console.log("additionalData", additionalData);
     if (!user) return;
     const { email } = user;
+    console.log("EMAIL", email);
     try {
         const docRef = await setDoc(doc(db, "users", user.uid), {
             email,
             additionalData
         });
+        console.log("ICICICICICICICICICIC", docRef)
+        return docRef;
+
     } catch (e) {
-        console.log(e);
+        console.log("e", e);
     }
 }
 
@@ -51,14 +57,39 @@ export const updateUserDocument = async (user, additionalData) => {
 export const getUserById = async (userId) => {
     if (!userId) return;
     try {
+        console.log("userId", userId);
         const docRef = doc(db, "users", userId);
         const docSnap = await getDoc(docRef);
+        console.log("ICIIIII", docSnap)
         if (docSnap.exists()) {
             return docSnap.data();
         } else {
             throw new Error("No such document!")
         }
     } catch (e) {
+        console.log("EEE", e)
+        throw new Error(e);
+    }
+}
+
+export const getDevisByUserId = async (userId) => {
+    if (!userId) return;
+    try {
+        const usersRef = collection(db, "users");
+
+        const q = query(usersRef, where("additionalData.tokenParrain", "==", userId));
+
+        const querySnapshot = await getDocs(q);
+        let res = []
+        querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        res.push(doc.data());
+        console.log(doc.id, " => ", doc.data());
+        });
+        return res;
+
+    } catch (e) {
+        console.log("EEE", e)
         throw new Error(e);
     }
 }

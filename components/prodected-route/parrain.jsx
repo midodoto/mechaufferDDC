@@ -7,6 +7,7 @@ const ProtectedRoute = ({ children }) => {
     const router = useRouter()
     
     useEffect(() => {
+        console.log("USER", user);
         if (!user) {
             router.push('/login')
         } else if (user.additionalData.role !== "parrain") {

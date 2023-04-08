@@ -197,22 +197,32 @@ const Step11 = ({ display, setStep }) => {
     const [firstname, setFirstname] = useState(null);
     const [phone, setPhone] = useState(null);
     const [civilite, setCivilite] = useState(null);
+    const tokenReducer = useSelector(({token}) => token)
     
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(tokenReducer.tokenParrain);
     
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     
     const devisReducer = useSelector(({ devis }) => devis);
-    
+
     const handleSignup = async (e) => {
         e.preventDefault()
         try {
             if (data.password === data.confirmPassword) {
                 setLoading(true)
                 const { user } = await signup(data.email, data.password);
-                await createUserDocument(user, {role: 'user', devis: devisReducer.data, parrainNumber: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite});
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                let mm = today.getMonth() + 1; // Months start at 0!
+                let dd = today.getDate();
+
+                if (dd < 10) dd = '0' + dd;
+                if (mm < 10) mm = '0' + mm;
+
+                const formattedToday = dd + '/' + mm + '/' + yyyy;
+                await createUserDocument(user, {date: formattedToday, role: 'user', devis: devisReducer.data, tokenParrain: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite});
                 setLoading(false);
                 router.push('/login')
             }

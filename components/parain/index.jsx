@@ -14,6 +14,8 @@ import Body from '../library/typo/body1.jsx';
 import eye from '../../public/images/eye.png';
 import Image from "next/image.js";
 import youpi from '../../public/images/homepage_cards/youpi.png';
+import {createUserDocument} from "../../config/firebase.js";
+import { useSelector } from "react-redux";
 
 const ParainStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
@@ -74,6 +76,9 @@ const Step2 = styled.div`
       bottom: 1rem;
       color: red;
     }
+  }
+  .token {
+    margin-top: 3rem;
   }
   @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
     width: 100%;
@@ -205,6 +210,10 @@ const InputWrapperCheckbox = styled.div`
 
 `;
 
+const Error = styled.div`
+  color: red;
+`;
+
 
 const Parain = () => {
     const [state, setState] = useState(0);
@@ -215,20 +224,23 @@ const Parain = () => {
     const { user, signup } = useAuth();
     const [mdp, setMdp] = useState(true);
     const [confirmMdp, setConfirmMdp] = useState(true);
-    
-    
+    const [error, setError] = useState(null);
+    const tokenReducer = useSelector(({token}) => token)
     
     const handleSignupParain = async (e) => {
         e.preventDefault()
         try {
             if (data.password === data.confirmPassword) {
-                await signup(data.email, data.password);
+                const { user } = await signup(data.email, data.password);
+                const usr = await createUserDocument(user, {role: 'parrain', tokenPartenaire: data.tokenPartenaire, age: data.age, lien: data.lien, ville : data.ville, nom : data.nom, nomParrain: data.nomParrain, phone: data.phone, phoneParrain: data.phoneParrain});
+                console.log("22222222");
                 setState(2);
             }
             else
                 throw new Error('password does not match');
         } catch (err) {
             console.log(err)
+            setError("Cette Email est deja utilisé");
         }        
     }
     
@@ -240,7 +252,7 @@ const Parain = () => {
                <H3>Inscrivez-vous en parrainant un proche</H3>
     
                 <Formik
-                    initialValues={{ age: '', lien: '', ville: '', nom: '', nomParrain: '', phone: '', phoneParrain: ''}}
+                    initialValues={{ age: '', lien: '', ville: '', nom: '', nomParrain: '', phone: '', phoneParrain: '', tokenPartenaire: tokenReducer.tokenPartenaire}}
                     enableReinitialize
                     initialErrors={{ error: '' }}
                     validationSchema={toFormikValidationSchema(zod.object({
@@ -251,9 +263,12 @@ const Parain = () => {
                         nomParrain: zod.string({required_error: 'Champ obligatoire'}),
                         phone: zod.string({required_error: 'Champ obligatoire'}),
                         phoneParrain: zod.string({required_error: 'Champ obligatoire'}),
+                        tokenPartenaire: zod.string()
                         }))}
                     onSubmit={(values, actions) => {
                         setData(values);
+                        console.log("VALUES", values);
+                        setState(1);
                         actions.setSubmitting(false);
                     }}
                 >
@@ -371,7 +386,7 @@ const Parain = () => {
                                         </InputWrapper>
                                     )}
                                 </Field>
-                                <ButtonPrimary  height={"5rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={button} onClick={() => setState(1)}>Envoyer</ButtonPrimary>
+                                <ButtonPrimary  height={"5rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={button} onClick={() => console.log("test")}>Envoyer</ButtonPrimary>
 
                             </Form>
                         )
@@ -413,8 +428,22 @@ const Parain = () => {
                             <input type="checkbox" id="callback" name="callback" value="true" />
                             <label htmlFor="callback"><BodyMed >Vous acceptez d’être rappelé gratuitement par un de nos experts pour vous accompagner tout au long de votre projet</BodyMed></label>
                         </InputWrapperCheckbox>
-                        <ButtonPrimary type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Valider</ButtonPrimary>
-                    </form>
+ 
+                <H3 className="token">Grâce auquel de nos partenaires avez-vous connu notre plate-forme ?</H3>
+                <InputWrapper>
+                  <input placeholder={"CODE PARRAINAGE (OPTIONEL)"} type="text" required name={"tokenPartenaire"} id={"tokenPartenaire"} value={data.tokenPartenaire} onChange={(e) =>
+                      setData({
+                          ...data,
+                          tokenPartenaire: e.target.value,
+                      })
+                  }/>
+                </InputWrapper>
+                {console.log("ERRor", error)}
+                {error && 
+                  <Body2 color="red" fontSize="1.2">{error}</Body2>
+                }
+                <ButtonPrimary type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Valider</ButtonPrimary>
+                </form>
                 </div>
             </Step2> : state === 2 &&
                     <Step3>

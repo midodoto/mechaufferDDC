@@ -96,6 +96,9 @@ const Step10 = ({ display, setStep }) => {
         InitialState();
         if (user.additionalData.role === "user")
           router.push('/dashboard-user');
+          else {
+            setStep(11);
+          }
       } catch(e) {
         setLoading(false);
       }

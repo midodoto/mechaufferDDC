@@ -263,7 +263,7 @@ const Parain = () => {
                         nomParrain: zod.string({required_error: 'Champ obligatoire'}),
                         phone: zod.string({required_error: 'Champ obligatoire'}),
                         phoneParrain: zod.string({required_error: 'Champ obligatoire'}),
-                        tokenPartenaire: zod.string()
+                        tokenPartenaire: zod.string().nullish()
                         }))}
                     onSubmit={(values, actions) => {
                         setData(values);
@@ -431,7 +431,7 @@ const Parain = () => {
  
                 <H3 className="token">Grâce auquel de nos partenaires avez-vous connu notre plate-forme ?</H3>
                 <InputWrapper>
-                  <input placeholder={"CODE PARRAINAGE (OPTIONEL)"} type="text" required name={"tokenPartenaire"} id={"tokenPartenaire"} value={data.tokenPartenaire} onChange={(e) =>
+                  <input placeholder={"CODE PARRAINAGE (OPTIONEL)"} type="text" name={"tokenPartenaire"} id={"tokenPartenaire"} value={data.tokenPartenaire} onChange={(e) =>
                       setData({
                           ...data,
                           tokenPartenaire: e.target.value,

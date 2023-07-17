@@ -23,7 +23,7 @@ const Coordonnee = () => {
             <Content>
                 <Body>Renseignez vos coordonnées </Body>
                 <br/>
-                <BodyMed>Merci de vérifier attentivement l’exactitude de vos informations, vos récompenses  seront livrées à l’adresse communiquée ci-dessous. </BodyMed>
+                <BodyMed>Merci de vérifier attentivement l’exactitude de vos informations, vos récompenses seront livrées à l’adresse communiquée ci-dessous. </BodyMed>
             </Content>
         </CoordonneeStyle>
     );

@@ -181,6 +181,7 @@ const Demandes = () => {
                 <th>DATE</th>
                 <th></th>
               </tr>
+              {console.log("demandes", demandes)}
               {demandes?.map((demande, index) => {
                 console.log("0", demande)
                 return (              

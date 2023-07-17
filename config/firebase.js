@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth'
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
 import {getFirestore, collection, addDoc, doc, getDoc, setDoc, updateDoc, query, where, getDocs} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -91,5 +91,24 @@ export const getDevisByUserId = async (userId) => {
     } catch (e) {
         console.log("EEE", e)
         throw new Error(e);
+    }
+}
+
+export const resetEmail = async (email) => {
+    try {
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, email)
+          .then(() => {
+            console.log("EMail sent");
+            // Password reset email sent!
+            // ..
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+          });
+    } catch (e) {
+
     }
 }

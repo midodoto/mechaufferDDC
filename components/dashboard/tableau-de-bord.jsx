@@ -6,7 +6,7 @@ const TableauDeBordStyle = styled.div``;
 const TableauDeBord = ({ user }) => {
     return (
         <TableauDeBordStyle>
-            <p>{user.uid}</p>
+            <p>Lien d`affiliation: https://mechauffer.com?tokenParrain={user.uid}</p>
         </TableauDeBordStyle>
     );
 };

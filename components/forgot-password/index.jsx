@@ -4,6 +4,8 @@ import ButtonPrimary from "../library/button/primary.jsx";
 import Body1 from "../library/typo/body1.jsx";
 import Body2 from "../library/typo/body1.jsx";
 import H3 from "../library/typo/h3.jsx";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { resetEmail } from '../../config/firebase.js';
 
 const ForgotPassowrdStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
@@ -89,10 +91,12 @@ const ForgotPassowrd = () => {
     
     const handleForgotPassword = async (e) => {
         e.preventDefault()
-        
+        console.log("22222222");
         try {
-            // await login(data.email, data.password)
-            setDisplay(false);
+            await resetEmail(data.email);
+            console.log("333333");
+
+            // setDisplay(false);
         } catch (err) {
             console.log(err)
         }

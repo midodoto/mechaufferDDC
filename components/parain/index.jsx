@@ -15,7 +15,10 @@ import eye from '../../public/images/eye.png';
 import Image from "next/image.js";
 import youpi from '../../public/images/homepage_cards/youpi.png';
 import {createUserDocument} from "../../config/firebase.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from 'redux';
+import { TokenActions } from '../../store';
+import { useRouter } from 'next/router'
 
 const ParainStyle = styled.div`
   max-width: ${({theme}) => theme.layout.xxLargeScreen};
@@ -226,13 +229,18 @@ const Parain = () => {
     const [confirmMdp, setConfirmMdp] = useState(true);
     const [error, setError] = useState(null);
     const tokenReducer = useSelector(({token}) => token)
-    
+    const dispatch = useDispatch();
+    const { TokenClean } = bindActionCreators(TokenActions, dispatch);
+    const router = useRouter()
+
     const handleSignupParain = async (e) => {
         e.preventDefault()
         try {
             if (data.password === data.confirmPassword) {
                 const { user } = await signup(data.email, data.password);
                 const usr = await createUserDocument(user, {role: 'parrain', tokenPartenaire: data.tokenPartenaire, age: data.age, lien: data.lien, ville : data.ville, nom : data.nom, nomParrain: data.nomParrain, phone: data.phone, phoneParrain: data.phoneParrain});
+                TokenClean();
+                router.replace('/', undefined, { shallow: true });
                 console.log("22222222");
                 setState(2);
             }

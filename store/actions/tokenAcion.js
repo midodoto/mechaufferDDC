@@ -15,3 +15,12 @@ export const TokenPartenaire = (tokenPartenaire) => {
         });
     };
 };
+
+export const TokenClean = () => {
+    return (dispatch) => {
+        dispatch({
+            type: 'clean',
+            payload: null,
+        });
+    };
+};

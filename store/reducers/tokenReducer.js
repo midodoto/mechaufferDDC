@@ -9,6 +9,11 @@ const reducer = (state = initialState, action) => {
             return {...state, tokenParrain: action.payload};
         case 'tokenPartenaire':
             return {...state, tokenPartenaire: action.payload};
+        case 'clean':
+            return {
+                tokenParrain: null,
+                tokenPartenaire: null,
+            };
         default:
             return state;
     }

@@ -62,6 +62,7 @@ const Step10 = ({ display, setStep }) => {
     const [value, setValue] = useState({title: devisReducer.data && devisReducer.data[9] ? devisReducer.data[9].value : null});
     
     const addNewDevis = async () => {
+      console.log("ICI")
       try {
         setLoading(true);
         const newDevis = { ...devisReducer };
@@ -128,7 +129,7 @@ const Step10 = ({ display, setStep }) => {
                 <ButtonPrimary 
                   onClick={() => {
                     OverwriteDevis({step: 10, data: {key: 'Type', value: value.title}});
- 
+                    console.log("user",user);
                     if (!user) {
                       setStep(11);
                     } else {

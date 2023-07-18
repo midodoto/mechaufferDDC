@@ -12,7 +12,7 @@ import BodyMed from "../library/typo/body-med.jsx";
 import Body1 from "../library/typo/body1.jsx";
 import Body2 from "../library/typo/body2.jsx";
 import H3 from "../library/typo/h3.jsx";
-import { DevisActions } from '../../store';
+import { DevisActions, TokenActions } from '../../store';
 
 const Step11Style = styled.div`
   display: ${({ display }) => display ? 'flex' : 'none'};
@@ -182,7 +182,6 @@ const Error = styled.div`
 `;
 
 const Step11 = ({ display, setStep }) => {
-    const dispatch = useDispatch();
     const { user, signup } = useAuth();
     const [mdp, setMdp] = useState(true);
     const [confirmMdp, setConfirmMdp] = useState(true);
@@ -200,7 +199,10 @@ const Step11 = ({ display, setStep }) => {
     const tokenReducer = useSelector(({token}) => token)
     
     const [token, setToken] = useState(tokenReducer.tokenParrain);
-    
+    const dispatch = useDispatch();
+    const { TokenClean } = bindActionCreators(TokenActions, dispatch);
+    const { InitialState } = bindActionCreators(DevisActions, dispatch);
+
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -224,7 +226,10 @@ const Step11 = ({ display, setStep }) => {
                 const formattedToday = dd + '/' + mm + '/' + yyyy;
                 await createUserDocument(user, {date: formattedToday, role: 'user', devis: devisReducer.data, tokenParrain: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite});
                 setLoading(false);
-                router.push('/login')
+                TokenClean();
+                InitialState();
+                router.replace('/devis', undefined, { shallow: true });
+                router.push('/dashboard-user')
             }
             else
                 setError('Les mots de passes ne sont pas similaire');
@@ -265,7 +270,7 @@ const Step11 = ({ display, setStep }) => {
                     </Step1>
                     <Step2 display={displayStep === 2}>
                         <H3 color={themeContext.colors.black}>Avez-vous été parrainé par un proche ?</H3>
-                        <Body2 className={"subtitle"}>Si oui, merci de renseigner son nom ainsi que son prénom. Dans le cas contraire, cliquez sur “Continuer”.</Body2>
+                        <Body2 className={"subtitle"}>Si oui, merci de renseigner son numero de parainage. Dans le cas contraire, cliquez sur “Continuer”.</Body2>
                         <InputWrapper>
                             <input type="text" placeholder={"Token"} name={"token"} id={"token"} onChange={(e) => setToken(e.target.value)} value={token}/>
                         </InputWrapper>

@@ -457,7 +457,7 @@ const Parain = () => {
                     <Step3>
                         <H2>Félicitations ! votre compte a été créé avec succès</H2>
                         <Image src={youpi} alt={`youpi`} width={414} height={467}/>
-                        <Link href="/login">
+                        <Link href="/dashboard">
                                 <ButtonPrimary  height={"5rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} onClick={() => setState(0)}>Accéder à mon Espace Parrain</ButtonPrimary>
                         </Link>
                     </Step3>}

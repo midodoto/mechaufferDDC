@@ -5,6 +5,7 @@ import Body from '../library/typo/body2.jsx';
 import BodyMed from '../library/typo/body-med.jsx';
 import {getDevisByUserId} from '../../config/firebase.js';
 import { useAuth } from '../../context/AuthContext'
+import Body1 from '../library/typo/body1.jsx';
 
 const DemandesStyle = styled.div`
   .subtitle {
@@ -36,6 +37,9 @@ margin-top: 3rem;
       width: 25%;
       text-align: left;
     }
+  }
+  .demande {
+    padding-top: 2rem;
   }
 `;
 
@@ -75,6 +79,18 @@ const Flex = styled.div`
   }
 `;
 
+const Status = styled.div`
+width: 20px;
+height: 20px;
+background-color: #FAC131;
+border-radius: 50%;
+`
+
+const FlexStatus = styled.div`
+display: flex;
+align-item: center;
+gap: 0.6rem;
+`
 const Demandes = () => {
 
   const { user } = useAuth();
@@ -186,9 +202,9 @@ const Demandes = () => {
                 console.log("0", demande)
                 return (              
                 <tr key={index}>
-                  <td>{demande.additionalData.lastname} {demande.additionalData.firstname}</td>
-                  <td></td>
-                  <td>{demande.additionalData.date}</td>
+                  <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.lastname} {demande.additionalData.firstname}</Body1></td>
+                  <td className="demande"><FlexStatus><Status></Status><Body1 fontSize='1.4'>En  cours de traitement</Body1></FlexStatus></td>
+                  <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.date}</Body1></td>
                   <td></td>
                 </tr>)
               })}

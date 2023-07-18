@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const TableauDeBordStyle = styled.div``;
 
+const Button = styled.div`
+    cursor: pointer;
+`;
+
 const TableauDeBord = ({ user }) => {
+
+    const [link, setLink] = useState(`https://me-chauffer.vercel.app/?tokenParrain=${user.uid}`)
+
     return (
         <TableauDeBordStyle>
-            <p>Lien d`affiliation: https://mechauffer.com?tokenParrain={user.uid}</p>
+            <Button>
+            <p onClick={() => {navigator.clipboard.writeText(link)}}>Lien d`affiliation (Cliquer pour copier le lien): {link}</p>
+
+            </Button>
         </TableauDeBordStyle>
     );
 };

@@ -1,5 +1,5 @@
 import Image from "next/image.js";
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {ThemeContext} from "styled-components";
 import {useAuth} from "../../context/AuthContext.js";
 import ButtonPrimary from "../library/button/primary.jsx";
@@ -16,6 +16,7 @@ import Demandes from './demandes.jsx';
 import Recompenses from './recompenses.jsx';
 import H3 from '../library/typo/h3.jsx';
 import Body from '../library/typo/body1.jsx';
+import { getDevisByUserId } from "../../config/firebase.js";
 
 const DashboardStyle = styled.div`
   min-height: calc(100vh - 9rem);
@@ -95,6 +96,18 @@ const Dashboard = () => {
             console.log(err)
         }
     }
+
+    const [demandes, setDemandes] = useState(null);
+    const getDevisByUserIdFct = async () => {
+        console.log("user", user);
+        const d = await getDevisByUserId(user.uid);
+      console.log("ddddddd", d)
+      setDemandes(d)
+    }
+  
+    useEffect(() => {
+      getDevisByUserIdFct()
+    }, []);
     
     return (
         <DashboardStyle>
@@ -157,13 +170,13 @@ const Dashboard = () => {
                 </Left>
                 <Right>
                     {stateMenu === 0 &&
-                        <TableauDeBord user={user} />
+                        <TableauDeBord user={user} demandes={demandes} />
                     }
                     {stateMenu === 1 &&
-                        <Demandes />
+                        <Demandes demandes={demandes}/>
                     }
                     {stateMenu === 2 &&
-                        <Recompenses />
+                        <Recompenses demandes={demandes}/>
                     }
                     {stateMenu === 3 &&
                         <Gestion />

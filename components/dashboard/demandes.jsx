@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
+import React, {useEffect, useState, useContext} from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import H3 from '../library/typo/h3.jsx';
 import Body from '../library/typo/body2.jsx';
 import BodyMed from '../library/typo/body-med.jsx';
 import {getDevisByUserId} from '../../config/firebase.js';
 import { useAuth } from '../../context/AuthContext'
 import Body1 from '../library/typo/body1.jsx';
+import Body3 from '../library/typo/body3.jsx';
+import Link from 'next/link.js';
+import ButtonPrimary from '../library/button/primary.jsx';
 
 const DemandesStyle = styled.div`
   .subtitle {
@@ -30,17 +33,6 @@ margin-top: 3rem;
   box-shadow: -5.18343px 3.45562px 14.6864px rgba(176, 186, 192, 0.2);
   border-radius: 12px;
   position: relative;
-
-  table {
-    width: 100%;
-    th {
-      width: 25%;
-      text-align: left;
-    }
-  }
-  .demande {
-    padding-top: 2rem;
-  }
 `;
 
 const Grid = styled.div`
@@ -54,6 +46,21 @@ const Title = styled.p`
   opacity: 0.4;
 `;
 
+const Wrapper = styled.div`
+position: relative;
+  width: 100%;
+  table {
+    width: 100% !important;
+    th {
+      width: 25%;
+      text-align: left;
+    }
+  }
+  .demande {
+    padding-top: 2rem;
+  }
+`;
+
 
 const Notice = styled.p`
 background: rgba(222, 222, 222, 0.2);
@@ -61,7 +68,7 @@ border-radius: 10px;
 width: 320px;
 position: absolute;
 right: 2rem;
-top: 2rem;
+top: -2rem;
 padding: 1rem;
 `
 const Flex = styled.div`
@@ -86,19 +93,73 @@ background-color: #FAC131;
 border-radius: 50%;
 `
 
+const Empty = styled.div`
+display: flex;
+justify-content: space-between;
+`
+
 const FlexStatus = styled.div`
 display: flex;
 align-item: center;
 gap: 0.6rem;
 `
+export const DemandesList = ({demandes}) => {
+  const themeContext = useContext(ThemeContext)
+
+  return (
+    <Wrapper>
+    {demandes?.length > 0 &&<Notice>Bénéficiez de 2 XCP supplémentaires en renseignant les informations du bénéficiaire pour votre première demande</Notice> }
+    {/* <Grid>
+    <Title>NOM</Title>
+    <Title>ÈTAT</Title>
+    <Title>DATE</Title>
+    <Title></Title>
+    {demandes.map((demande) => {
+      return (<p>{demande.email}</p>)
+    })}
+    </Grid> */}
+    {demandes?.length > 0 ?
+
+    <table>
+      <tr>
+        <th>NOM</th>
+        <th>ÈTAT</th>
+        <th>DATE</th>
+        <th></th>
+      </tr>
+      {console.log("demandes", demandes)}
+      {demandes?.map((demande, index) => {
+        console.log("0", demande)
+        return (              
+        <tr key={index}>
+          <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.lastname} {demande.additionalData.firstname}</Body1></td>
+          <td className="demande"><FlexStatus><Status></Status><Body1 fontSize='1.4'>En  cours de traitement</Body1></FlexStatus></td>
+          <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.date}</Body1></td>
+          <td></td>
+        </tr>)
+      })}
+    </table> : 
+    <Empty>
+      <span><Body3>Vous n’avez pas encore de demande en cours.</Body3><Body3> Cliquez sur le bouton “Créer une nouvelle demande” pour en créer une.</Body3></span>
+      <Link href={'/devis'}>
+                    <ButtonPrimary bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>Créer une nouvelle demande</ButtonPrimary>
+                </Link>
+    </Empty>
+}
+
+  </Wrapper>
+  );
+}
+
+
 const Demandes = () => {
 
   const { user } = useAuth();
   const [demandes, setDemandes] = useState(null);
 
   const getDevisByUserIdFct = async () => {
+    console.log("user", user);
     const d = await getDevisByUserId(user.uid);
-    console.log("d", d);
     setDemandes(d)
   }
 
@@ -179,37 +240,7 @@ const Demandes = () => {
             </ContentHeader>
           </Flex>
           <Content>
-            <Notice>Bénéficiez de 2 XCP supplémentaires en renseignant les informations du bénéficiaire pour votre première demande</Notice>  
-            {/* <Grid>
-            <Title>NOM</Title>
-            <Title>ÈTAT</Title>
-            <Title>DATE</Title>
-            <Title></Title>
-            {demandes.map((demande) => {
-              return (<p>{demande.email}</p>)
-            })}
-            </Grid> */}
-
-            <table>
-              <tr>
-                <th>NOM</th>
-                <th>ÈTAT</th>
-                <th>DATE</th>
-                <th></th>
-              </tr>
-              {console.log("demandes", demandes)}
-              {demandes?.map((demande, index) => {
-                console.log("0", demande)
-                return (              
-                <tr key={index}>
-                  <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.lastname} {demande.additionalData.firstname}</Body1></td>
-                  <td className="demande"><FlexStatus><Status></Status><Body1 fontSize='1.4'>En  cours de traitement</Body1></FlexStatus></td>
-                  <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.date}</Body1></td>
-                  <td></td>
-                </tr>)
-              })}
-            </table>
-
+            <DemandesList demandes={demandes} />
           </Content>
         </DemandesStyle>
     );

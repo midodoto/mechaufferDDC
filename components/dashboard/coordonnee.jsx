@@ -64,6 +64,16 @@ const Account = styled.div`
   padding: 2rem 0 1rem 0;
 `;
 
+const MessageSent = styled.div`
+margin-top: 2rem;
+  background: linear-gradient(68.05deg, rgba(24, 188, 109, 0.2) 15.5%, rgba(106, 225, 76, 0.2) 121.74%);
+  opacity: 0.9;
+  border-radius: 12px;
+  padding: 1.5rem 4rem;
+  bottom: -7rem;
+  right: 0;
+`;
+
 const Coordonnee = ({ user }) => {
   const themeContext = useContext(ThemeContext)
   const [messageSent, setMessageSent] = useState(false);
@@ -214,7 +224,7 @@ const Coordonnee = ({ user }) => {
                         <ButtonPrimary  height={"5rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>Sauvegarder</ButtonPrimary>
                         {messageSent &&
                             <MessageSent>
-                                <BodyMed color={themeContext.colors.green}>Merci! Votre demande a été envoyée!</BodyMed>
+                                <BodyMed color={themeContext.colors.green}>Sauvegardé</BodyMed>
                             </MessageSent>
                         }
                     </FormWrapper>

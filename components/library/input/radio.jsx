@@ -70,7 +70,7 @@ const MyRaio = ({ label, data, fieldName, ...props }) => {
 <WrapperRadio>
     <LabelRadio><Body color={themeContext.colors.blue40}>{label}</Body></LabelRadio>
                 {data.map((text, index) => {
-                    return (            <Label>
+                    return (            <Label key={index}>
                         <Field type="radio" name={fieldName} value={text} />
                         <Body color={themeContext.colors.blue40}>{text}</Body>
                       </Label>)

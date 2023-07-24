@@ -54,6 +54,26 @@ export const updateUserDocument = async (user, additionalData) => {
     }
 }
 
+export const updateUserCoordoneeDocument = async (user, additionalData) => {
+    if (!user) return;
+    const { email } = user;
+    try {
+        await updateDoc(doc(db, "users", user.uid), {
+            "additionalData.firstname": additionalData.firstname,
+            "additionalData.lastname": additionalData.lastname,
+            "additionalData.ville": additionalData.ville,
+            "additionalData.civilite": additionalData.civilite,
+            "additionalData.pays": additionalData.pays,
+            "additionalData.codePostal": additionalData.codePostal,
+            "additionalData.adresse": additionalData.adresse,
+            "additionalData.iban": additionalData.iban,
+            "additionalData.nomCompte": additionalData.nomCompte,
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export const getUserById = async (userId) => {
     if (!userId) return;
     try {

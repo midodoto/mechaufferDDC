@@ -182,7 +182,7 @@ const Dashboard = () => {
                         <Gestion />
                     }
                     {stateMenu === 4 &&
-                        <Coordonnee />
+                        <Coordonnee user={user} />
                     }
                 </Right>
             </Wrapper>

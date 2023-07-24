@@ -27,7 +27,8 @@ const Wrapper = styled.div`
 const Input = styled.input`
   height: 5rem;
   padding: 2rem;
-  border: 1px solid ${({ error, theme }) => error ? 'red' : theme.colors.blue40};
+  border: ${({ error, theme }) => error ? '1px solid red' : 'none'};
+  box-shadow: -5.183431625366211px 3.4556212425231934px 14.686389923095703px 0px rgba(176, 186, 192, 0.20);
   border-radius: 12px;
   flex: 1;
 `;

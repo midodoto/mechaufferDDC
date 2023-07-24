@@ -217,6 +217,12 @@ const Error = styled.div`
   color: red;
 `;
 
+const Flex = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+`;
+
 
 const Parain = () => {
     const [state, setState] = useState(0);
@@ -238,7 +244,7 @@ const Parain = () => {
         try {
             if (data.password === data.confirmPassword) {
                 const { user } = await signup(data.email, data.password);
-                const usr = await createUserDocument(user, {role: 'parrain', tokenPartenaire: data.tokenPartenaire, age: data.age, lien: data.lien, ville : data.ville, nom : data.nom, nomParrain: data.nomParrain, phone: data.phone, phoneParrain: data.phoneParrain});
+                const usr = await createUserDocument(user, {role: 'parrain', tokenPartenaire: data.tokenPartenaire, age: data.age, lien: data.lien, ville : data.ville, nom : data.nom, firstname: data.firstname, lastname: data.lastname, phone: data.phone, phoneParrain: data.phoneParrain});
                 TokenClean();
                 router.replace('/', undefined, { shallow: true });
                 console.log("22222222");
@@ -260,15 +266,15 @@ const Parain = () => {
                <H3>Inscrivez-vous en parrainant un proche</H3>
     
                 <Formik
-                    initialValues={{ age: '', lien: '', ville: '', nom: '', nomParrain: '', phone: '', phoneParrain: '', tokenPartenaire: tokenReducer.tokenPartenaire}}
+                    initialValues={{ age: '', lien: '', ville: '', firstname: '', lastname: '', phone: '', phoneParrain: '', tokenPartenaire: tokenReducer.tokenPartenaire}}
                     enableReinitialize
                     initialErrors={{ error: '' }}
                     validationSchema={toFormikValidationSchema(zod.object({
                         age: zod.string({required_error: 'Champ obligatoire'}),
                         lien: zod.string({required_error: 'Champ obligatoire'}),
                         ville: zod.string({required_error: 'Champ obligatoire'}),
-                        nom: zod.string({required_error: 'Champ obligatoire'}),
-                        nomParrain: zod.string({required_error: 'Champ obligatoire'}),
+                        firstname: zod.string({required_error: 'Champ obligatoire'}),
+                        lastname: zod.string({required_error: 'Champ obligatoire'}),
                         phone: zod.string({required_error: 'Champ obligatoire'}),
                         phoneParrain: zod.string({required_error: 'Champ obligatoire'}),
                         tokenPartenaire: zod.string().nullish()
@@ -277,7 +283,7 @@ const Parain = () => {
                         setData(values);
                         console.log("VALUES", values);
                         setState(1);
-                        actions.setSubmitting(false);
+                        // actions.setSubmitting(false);
                     }}
                 >
                     {({ errors, values, setFieldValue }) => {
@@ -338,20 +344,37 @@ const Parain = () => {
                                         </InputWrapper>
                                     )}
                                 </Field>
-                                <Field name="nomParrain">
+                                <Flex>
+                                <Field name="firstname">
                                     {({
                                           field, // { name, value, onChange, onBlur }
                                           form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                           meta,
                                       }) => (
                                         <InputWrapper>
-                                            <input type="text" placeholder="Votre nom et votre prénom" {...field} />
+                                            <input type="text" placeholder="Votre prénom" {...field} />
                                             {meta.touched && meta.error && (
                                                 <div className="error">{meta.error}</div>
                                             )}
                                         </InputWrapper>
                                     )}
                                 </Field>
+                                <Field name="lastname">
+                                    {({
+                                          field, // { name, value, onChange, onBlur }
+                                          form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                                          meta,
+                                      }) => (
+                                        <InputWrapper>
+                                            <input type="text" placeholder="Votre nom" {...field} />
+                                            {meta.touched && meta.error && (
+                                                <div className="error">{meta.error}</div>
+                                            )}
+                                        </InputWrapper>
+                                    )}
+                                </Field>
+                                </Flex>
+
                                 <Field name="nom">
                                     {({
                                           field, // { name, value, onChange, onBlur }

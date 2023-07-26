@@ -132,7 +132,7 @@ const TableauDeBord = ({ user, demandes }) => {
                 <Body>Points acquis</Body>
             </Numbers>
             </FlexPoints>
-            <Recompense demandes={demandes}/>
+            <Recompense demandes={demandes} />
 
             {/* <Button>
             <p onClick={() => {navigator.clipboard.writeText(link)}}>Lien d`affiliation (Cliquer pour copier le lien): {link}</p>

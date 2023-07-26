@@ -31,7 +31,8 @@ export const AuthContextProvider = ({children,}) => {
                 }
                 setLoading(false)
             } catch (e) {
-            
+                logout();
+                console.log("GHASSAN");
             }
 
         })

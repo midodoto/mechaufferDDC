@@ -87,7 +87,7 @@ export const getUserById = async (userId) => {
             throw new Error("No such document!")
         }
     } catch (e) {
-        console.log("EEE", e)
+        console.log("EEEe", e)
         throw new Error(e);
     }
 }

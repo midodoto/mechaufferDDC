@@ -56,7 +56,9 @@ const Block = styled.div`
 `;
 
 const HeroStyle = styled.div`
-position: relative;
+max-width: ${({theme}) => theme.layout.xxLargeScreen};
+margin: auto;
+padding: 0rem 12rem;position: relative;
   min-height: calc(50vh);
   // background-image: url(${quisommesnous.src});
   // background-size: cover;
@@ -68,12 +70,19 @@ position: relative;
     left: 50%;
     margin-left: -130px
   }
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    padding: 0rem 2rem;
+    button {
+      position: relative;
+      margin: unset;
+      margin-top: 4rem;
+      bottom: unset;
+      left: unset;
+    }  
+  }
 `;
 
 const HeroWrapper = styled.div`
-  max-width: ${({theme}) => theme.layout.xxLargeScreen};
-  margin: auto;
-  padding: 0rem 12rem;
   position: relative;
   h2 {
     padding-top: 10rem;
@@ -87,7 +96,6 @@ const HeroWrapper = styled.div`
     max-width: 50rem;
   }
   @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
-    padding: 0rem 2rem;
     h1 {
       font-size: 4rem;
       line-height: 5rem;
@@ -162,8 +170,12 @@ margin-bottom: 7rem;
 
 const ListImages = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-bottom: 4rem;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    flex-direction: column;
+  }
 `;
 
 const TallImage = styled.div`
@@ -221,8 +233,12 @@ const Card = styled.div`
 
 const ListIsolation = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 3rem;
   margin: 6rem 0 10rem 0;
+  @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
+    flex-direction: column;
+  }
 `
 
 const Hero = () => {

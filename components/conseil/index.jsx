@@ -247,40 +247,40 @@ const Conseil = () => {
           <Content>
             <Section1>
               <H1>Comment bien isoler son logement ?</H1>
-              <H4>Gaspillez-vous votre argent et votre énergie à cause d'une mauvaise isolation ? L'isolation des combles permet d'économiser jusqu'à 500€/an sur votre facture d'énergie. Et pour de meilleurs résultats, vous pouvez aussi isoler vos murs et votre sol. Voici tous nos conseils.</H4>          
+              <H4>Gaspillez-vous votre argent et votre énergie à cause d`une mauvaise isolation ? L`isolation des combles permet d`économiser jusqu`à 500€/an sur votre facture d`énergie. Et pour de meilleurs résultats, vous pouvez aussi isoler vos murs et votre sol. Voici tous nos conseils.</H4>          
             </Section1>
             <Section2>
               <Mur>
                 <Wrapper>
-                  <H2>L’isolation des murs permet de réduire entre 20% et 25% des pertes de chaleur dans un logement</H2>
-                  <H4>En isolant vos murs, vous réduisez donc considérablement vos factures de chauffage, jusqu'à 25%.</H4>
+                  <H2>L`isolation des murs permet de réduire entre 20% et 25% des pertes de chaleur dans un logement</H2>
+                  <H4>En isolant vos murs, vous réduisez donc considérablement vos factures de chauffage, jusqu`à 25%.</H4>
                   <MainImageWrapper>
                   <MainImage />
                   <Tip>
                   <Body>#Isolation des murs</Body>
-                  <Body2>Tout savoir sur l’isolation des murs extérieurs</Body2>
+                  <Body2>Tout savoir sur l`isolation des murs extérieurs</Body2>
                   </Tip>
                   </MainImageWrapper>
                   <ListImages>
                     <ContentImage>
                       <SmallImage />
                       <Body>#Isolation des murs</Body>
-                      <Body>7 bonnes raisons de faire isoler vos murs par l’extérieur</Body>
+                      <Body>7 bonnes raisons de faire isoler vos murs par l`extérieur</Body>
                     </ContentImage>
                     <ContentImage>
                     <TallImage />
                     <Body>#Isolation des murs</Body>
-                      <Body>Combien coûte l’isolation des murs par l’extérieur ?</Body>
+                      <Body>Combien coûte l`isolation des murs par l`extérieur ?</Body>
                     </ContentImage>
                     <ContentImage>
                       <SmallImage />
                       <Body>#Isolation des murs</Body>
-                      <Body>Quels matériaux pour l’isolation des murs par l’extérieur ?</Body>
+                      <Body>Quels matériaux pour l`isolation des murs par l`extérieur ?</Body>
                     </ContentImage>
                     <ContentImage>
                     <TallImage />
                     <Body>#Isolation des murs</Body>
-                      <Body>faut-il isoler ses murs par l’intérieur ou par l’extérieur</Body>
+                      <Body>faut-il isoler ses murs par l`intérieur ou par l`extérieur</Body>
                     </ContentImage>
                   </ListImages>
                   <ButtonWrapper>
@@ -334,11 +334,11 @@ const Conseil = () => {
               <ListIsolation>
                 <Card>
                 <Body2>Validation de projet</Body2>
-                <BodyMed>Un conseiller vous contactpar téléphone, et s’assureavec vous de la pertinence de votre projet</BodyMed>
+                <BodyMed>Un conseiller vous contactpar téléphone, et s`assureavec vous de la pertinence de votre projet</BodyMed>
                 </Card>
                 <Card>
                 <Body2>Visite technique</Body2>
-                <BodyMed>Un visiteur technique se déplace chez vous pour s’assurer de la faisabilité des travaux</BodyMed>
+                <BodyMed>Un visiteur technique se déplace chez vous pour s`assurer de la faisabilité des travaux</BodyMed>
                 </Card>
                 <Card>
                 <Body2>Signature du devis</Body2>
@@ -346,7 +346,7 @@ const Conseil = () => {
                 </Card>
                 <Card>
                 <Body2>Travaux réalisés</Body2>
-                <BodyMed>c’est parti, on planifie une date pour vos travaux et on les réalise</BodyMed>
+                <BodyMed>c`est parti, on planifie une date pour vos travaux et on les réalise</BodyMed>
                 </Card>
               </ListIsolation>
             </Section4>

@@ -19,8 +19,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const appSecond = initializeApp(firebaseConfig, "Secondary");
 export const db = getFirestore(app);
-export const auth = getAuth();
+export const auth = getAuth(app);
+export const authSecond = getAuth(appSecond);
 export const storage = getStorage(app);
 
 export const createUserDocument = async (user, additionalData) => {
@@ -48,6 +50,17 @@ export const updateUserDocument = async (user, additionalData) => {
     try {
         await updateDoc(doc(db, "users", user.uid), {
             "additionalData.devis": {...additionalData}
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const removeParrainFirstUser = async (user) => {
+    if (!user) return;
+    try {
+        await updateDoc(doc(db, "users", user.uid), {
+            "additionalData.user": null
         });
     } catch (e) {
         console.log(e);

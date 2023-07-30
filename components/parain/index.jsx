@@ -244,7 +244,10 @@ const Parain = () => {
         try {
             if (data.password === data.confirmPassword) {
                 const { user } = await signup(data.email, data.password);
-                const usr = await createUserDocument(user, {role: 'parrain', tokenPartenaire: data.tokenPartenaire, age: data.age, lien: data.lien, ville : data.ville, nom : data.nom, firstname: data.firstname, lastname: data.lastname, phone: data.phone, phoneParrain: data.phoneParrain});
+                const usr = await createUserDocument(user, {role: 'parrain', tokenPartenaire: data.tokenPartenaire, age: data.age, lien: data.lien, firstname: data.firstname, lastname: data.lastname, phone: data.phoneParrain, user: {firstname: data.firstnameUser, lastname: data.lastnameUser, ville : data.ville, phone: data.phone, status: 'new', date: new Date().toString()} });
+                // const newUser = await createUserDocument(user, {role: 'user', tokenParrain: firstname: data.firstnameUser, lastname: data.lastnameUser, ville : data.ville, phone: data.phone});
+                // await updateUserDocument(user, newDevis.data);
+
                 TokenClean();
                 router.replace('/', undefined, { shallow: true });
                 console.log("22222222");
@@ -266,7 +269,7 @@ const Parain = () => {
                <H3>Inscrivez-vous en parrainant un proche</H3>
     
                 <Formik
-                    initialValues={{ age: '', lien: '', ville: '', firstname: '', lastname: '', phone: '', phoneParrain: '', tokenPartenaire: tokenReducer.tokenPartenaire}}
+                    initialValues={{ age: '', lien: '', ville: '', firstname: '', lastname: '', firstnameUser: '', lastnameUser: '',  phone: '', phoneParrain: '', tokenPartenaire: tokenReducer.tokenPartenaire}}
                     enableReinitialize
                     initialErrors={{ error: '' }}
                     validationSchema={toFormikValidationSchema(zod.object({
@@ -274,7 +277,9 @@ const Parain = () => {
                         lien: zod.string({required_error: 'Champ obligatoire'}),
                         ville: zod.string({required_error: 'Champ obligatoire'}),
                         firstname: zod.string({required_error: 'Champ obligatoire'}),
+                        firstnameUser: zod.string({required_error: 'Champ obligatoire'}),
                         lastname: zod.string({required_error: 'Champ obligatoire'}),
+                        lastnameUser: zod.string({required_error: 'Champ obligatoire'}),
                         phone: zod.string({required_error: 'Champ obligatoire'}),
                         phoneParrain: zod.string({required_error: 'Champ obligatoire'}),
                         tokenPartenaire: zod.string().nullish()
@@ -374,21 +379,37 @@ const Parain = () => {
                                     )}
                                 </Field>
                                 </Flex>
+                                <Flex>
 
-                                <Field name="nom">
+                                <Field name="firstnameUser">
                                     {({
                                           field, // { name, value, onChange, onBlur }
                                           form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                           meta,
                                       }) => (
                                         <InputWrapper>
-                                            <input type="text" placeholder="Nom et prénom de la personne à parrainer " {...field} />
+                                            <input type="text" placeholder="Prénom de la personne à parrainer " {...field} />
                                             {meta.touched && meta.error && (
                                                 <div className="error">{meta.error}</div>
                                             )}
                                         </InputWrapper>
                                     )}
                                 </Field>
+                                <Field name="lastnameUser">
+                                    {({
+                                          field, // { name, value, onChange, onBlur }
+                                          form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                                          meta,
+                                      }) => (
+                                        <InputWrapper>
+                                            <input type="text" placeholder="Nom de la personne à parrainer " {...field} />
+                                            {meta.touched && meta.error && (
+                                                <div className="error">{meta.error}</div>
+                                            )}
+                                        </InputWrapper>
+                                    )}
+                                </Field>
+                                </Flex>
                                 <Field name="phoneParrain">
                                     {({
                                           field, // { name, value, onChange, onBlur }

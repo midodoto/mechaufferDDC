@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {bindActionCreators} from "redux";
 import styled, {ThemeContext} from 'styled-components';
-import {createUserDocument} from "../../config/firebase.js";
+import {createUserDocument, removeParrainFirstUser} from "../../config/firebase.js";
 import {useAuth} from "../../context/AuthContext.js";
 import eye from "../../public/images/eye.png";
 import ButtonPrimary from "../library/button/primary.jsx";
@@ -13,6 +13,7 @@ import Body1 from "../library/typo/body1.jsx";
 import Body2 from "../library/typo/body2.jsx";
 import H3 from "../library/typo/h3.jsx";
 import { DevisActions, TokenActions } from '../../store';
+import { updateCurrentUser } from "firebase/auth";
 
 const Step11Style = styled.div`
   display: ${({ display }) => display ? 'flex' : 'none'};
@@ -181,7 +182,7 @@ const Error = styled.div`
   color: red;
 `;
 
-const Step11 = ({ display, setStep }) => {
+const Step11 = ({ display, setStep, initialUser }) => {
     const { user, signup } = useAuth();
     const [mdp, setMdp] = useState(true);
     const [confirmMdp, setConfirmMdp] = useState(true);
@@ -190,6 +191,8 @@ const Step11 = ({ display, setStep }) => {
         password: '',
         confirmPassword: '',
     })
+
+    console.log("initialUser", initialUser)
     const themeContext = useContext(ThemeContext)
     const [displayStep, setDisplayStep] = useState(1);
     const [name, setName] = useState(null);
@@ -209,27 +212,53 @@ const Step11 = ({ display, setStep }) => {
     
     const devisReducer = useSelector(({ devis }) => devis);
 
+    console.log("MDRcccccR", user);
+    useEffect(() => {
+      if (initialUser === true) {
+        setName(user?.additionalData?.user?.lastname)
+        setFirstname(user?.additionalData?.user?.firstname)
+        setPhone(user?.additionalData?.user?.phone)
+        setToken(user.uid)
+      }
+    }, [display]);
     const handleSignup = async (e) => {
         e.preventDefault()
         try {
             if (data.password === data.confirmPassword) {
-                setLoading(true)
-                const { user } = await signup(data.email, data.password);
-                const today = new Date();
-                const yyyy = today.getFullYear();
-                let mm = today.getMonth() + 1; // Months start at 0!
-                let dd = today.getDate();
-
-                if (dd < 10) dd = '0' + dd;
-                if (mm < 10) mm = '0' + mm;
-
-                const formattedToday = dd + '/' + mm + '/' + yyyy;
-                await createUserDocument(user, {date: formattedToday, role: 'user', devis: devisReducer.data, tokenParrain: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite});
+                setLoading(true);
+                // if (user?.additionalData?.role === "parrain") {
+                //   const { user } = await signup(data.email, data.password);
+                //   await createUserDocument(user, { role: 'user', devis: devisReducer.data, tokenParrain: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite, status: 'document', date: new Date().toString()});
+                //   setLoading(false);
+                //   TokenClean();
+                //   InitialState();
+                //   router.replace('/devis', undefined, { shallow: true });
+                //   router.push('/dashboard')
+                // } else {
+                //   const { user } = await signup(data.email, data.password);
+                //   await createUserDocument(user, { role: 'user', devis: devisReducer.data, tokenParrain: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite, status: 'document', date: new Date().toString()});
+                //   setLoading(false);
+                //   TokenClean();
+                //   InitialState();
+                //   router.replace('/devis', undefined, { shallow: true });
+                //   router.push('/dashboard-user')
+                // }
+                const newUser = await signup(data.email, data.password, true);
+                console.log("newUser", newUser);
+                await createUserDocument(newUser.user, { role: 'user', devis: devisReducer.data, tokenParrain: token, lastname: name, firstname: firstname, phone: phone, civilite: civilite, status: 'document', date: new Date().toString()});
+                await removeParrainFirstUser(user);
                 setLoading(false);
                 TokenClean();
                 InitialState();
                 router.replace('/devis', undefined, { shallow: true });
-                router.push('/dashboard-user')
+                if (user?.additionalData?.role === "parrain") {
+                  router.push('/dashboard');
+                } else {
+                  router.push('/dashboard-user');
+                }
+
+
+
             }
             else
                 setError('Les mots de passes ne sont pas similaire');
@@ -256,16 +285,17 @@ const Step11 = ({ display, setStep }) => {
                             </InputSelect>
                         </Select>
                         <InputWrapper>
-                            <input type="text" placeholder={"Nom*"} name={"surface"} id={"surface"} onChange={(e) => setName(e.target.value)} value={name}/>
+                            <input type="text" placeholder={"Nom*"} name={"surface"} id={"surface"} onChange={(e) => setName(e.target.value)} value={name} defaultValue={name}/>
                         </InputWrapper>
                         <InputWrapper>
-                            <input type="text"  placeholder={"Prénom*"} name={"surface"} id={"surface"} onChange={(e) => setFirstname(e.target.value)} value={firstname}/>
+                            <input type="text"  placeholder={"Prénom*"} name={"firstname"} id={"firstname"} onChange={(e) => setFirstname(e.target.value)}  value={firstname} />
                         </InputWrapper>
                         <InputWrapper>
-                            <input type="text"  placeholder={"Numéro de téléphone*"} name={"surface"} id={"surface"} onChange={(e) => setPhone(e.target.value)} value={phone}/>
+                            <input type="text"  placeholder={"Numéro de téléphone*"} name={"surface"} id={"surface"} onChange={(e) => setPhone(e.target.value)} value={phone} />
                         </InputWrapper>
+                        {console.log("firstname", firstname)}
                         <ButtonWrapper>
-                            <ButtonPrimary onClick={() => setDisplayStep(2)} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!(firstname && name && civilite && phone)}>Continue</ButtonPrimary>
+                            <ButtonPrimary onClick={() => setDisplayStep(token ? 2 : 3)} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!(firstname && name && civilite && phone)}>Continue</ButtonPrimary>
                         </ButtonWrapper>
                     </Step1>
                     <Step2 display={displayStep === 2}>

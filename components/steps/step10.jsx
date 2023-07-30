@@ -95,11 +95,7 @@ const Step10 = ({ display, setStep }) => {
         await updateUserDocument(user, newDevis.data);
         setLoading(false);
         InitialState();
-        if (user.additionalData.role === "user")
-          router.push('/dashboard-user');
-          else {
-            setStep(11);
-          }
+        router.push('/dashboard-user');
       } catch(e) {
         setLoading(false);
       }
@@ -130,10 +126,10 @@ const Step10 = ({ display, setStep }) => {
                   onClick={() => {
                     OverwriteDevis({step: 10, data: {key: 'Type', value: value.title}});
                     console.log("user",user);
-                    if (!user) {
-                      setStep(11);
-                    } else {
+                    if (user && user.additionalData.role === "user") {
                       addNewDevis();
+                    } else {
+                      setStep(11);
                     }
                   }} 
                   width={"26rem"} 

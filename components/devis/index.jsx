@@ -17,6 +17,7 @@ import Step9 from "../steps/step9.jsx";
 import Step10 from "../steps/step10.jsx";
 // import Step111 from "../steps/step11.jsx";
 import Step11 from "../steps/step11.jsx";
+import { useRouter } from "next/router";
 
 const DevisWrapper = styled.div`
   min-height: calc(100vh - 9rem);
@@ -79,8 +80,15 @@ const Devis = () => {
     const [extraStepChauffage, setExtraStepChauffage] = useState(1);
     // const [step, setStep] = useState(devisReducer.step + 1);
     const [step, setStep] = useState(1);
+    const [initialUser, setInitialUser] = useState(false);
+    const router = useRouter()
 
     useEffect(() => {
+      if (router.query.initialUser === "true") {
+        setInitialUser(true);
+      } else {
+        setInitialUser(false);
+      }
       if (step >= 7) {
           setState(2);
       } else
@@ -136,7 +144,7 @@ const Devis = () => {
                     <Step9 display={step === 9} setStep={setStep}/>
                     <Step10 display={step === 10} setStep={setStep}/>
                     {/*<Step111 display={step === 11} setStep={setStep}/>*/}
-                    <Step11 display={step === 11} setStep={setStep}/>
+                    <Step11 display={step === 11} setStep={setStep} initialUser={initialUser}/>
                 </Right>
             </MaxWidth>
         </DevisWrapper>

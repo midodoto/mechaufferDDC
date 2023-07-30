@@ -5,7 +5,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
-import {auth, getUserById} from '../config/firebase'
+import {auth, authSecond, getUserById} from '../config/firebase'
 
 const AuthContext = createContext({})
 
@@ -40,8 +40,14 @@ export const AuthContextProvider = ({children,}) => {
         return () => unsubscribe()
     }, [])
     
-    const signup = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password)
+    const signup = (email, password, second = false) => {
+        if (second === false)
+            return createUserWithEmailAndPassword(auth, email, password)
+            else {
+                console.log("PLEASEEEE");
+            return createUserWithEmailAndPassword(authSecond, email, password)
+            }
+
     }
 
     

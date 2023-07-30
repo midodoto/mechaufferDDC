@@ -9,6 +9,9 @@ import Body1 from '../library/typo/body1.jsx';
 import Body3 from '../library/typo/body3.jsx';
 import Link from 'next/link.js';
 import ButtonPrimary from '../library/button/primary.jsx';
+import moment from 'moment';
+import 'moment/locale/fr'  // without this line it didn't work
+import { useRouter } from 'next/router.js';
 
 const DemandesStyle = styled.div`
   .subtitle {
@@ -66,10 +69,12 @@ const Notice = styled.p`
 background: rgba(222, 222, 222, 0.2);
 border-radius: 10px;
 width: 320px;
-position: absolute;
+position: relative;
+float: right;
 right: 2rem;
 top: -2rem;
 padding: 1rem;
+margin-right: -20px;
 `
 const Flex = styled.div`
   display: grid;
@@ -87,9 +92,18 @@ const Flex = styled.div`
 `;
 
 const Status = styled.div`
-width: 20px;
-height: 20px;
-background-color: #FAC131;
+&.orange {
+  background-color: #FAC131;
+}
+
+&.green {
+  background-color: #76C075;
+}
+&.red {
+  background-color: #EC4444;
+}
+width: 16px;
+height: 16px;
 border-radius: 50%;
 `
 
@@ -103,6 +117,13 @@ display: flex;
 align-item: center;
 gap: 0.6rem;
 `
+const WrapperDemandeButton = styled.div`
+button {
+  padding-top: 0.2rem !important; 
+  padding-bottom: 0.2rem !important;
+}
+`;
+
 export const DemandesList = ({demandes}) => {
   const themeContext = useContext(ThemeContext)
 
@@ -129,13 +150,53 @@ export const DemandesList = ({demandes}) => {
       </tr>
       {console.log("demandes", demandes)}
       {demandes?.map((demande, index) => {
+        moment.locale('fr') // returns the new locale, in this case 'de'
+        var date = moment(demande.additionalData.date);
         console.log("0", demande)
         return (              
         <tr key={index}>
           <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.lastname} {demande.additionalData.firstname}</Body1></td>
-          <td className="demande"><FlexStatus><Status></Status><Body1 fontSize='1.4'>En  cours de traitement</Body1></FlexStatus></td>
-          <td className="demande"><Body1 fontSize='1.4'>{demande.additionalData.date}</Body1></td>
-          <td></td>
+          {demande.additionalData.status === 'new' ? 
+            <td className="demande">
+              <FlexStatus><Status className='orange'></Status><Body1 fontSize='1.4'>En attente du devis</Body1></FlexStatus></td>
+          : demande.additionalData.status === 'document' ?
+          <td className="demande">
+            <FlexStatus><Status className='orange'></Status><Body1 fontSize='1.4'>En attente des documents</Body1></FlexStatus></td>
+          : demande.additionalData.status === 'validation' ? 
+            <td className="demande">
+              <FlexStatus><Status className='orange'></Status><Body1 fontSize='1.4'>En attente de validation</Body1></FlexStatus></td>
+          : demande.additionalData.status === 'done' ?
+            <td className="demande"><FlexStatus><Status className='green'></Status><Body1 fontSize='1.4'>Validée</Body1></FlexStatus></td>
+          : <td className="demande"><FlexStatus><Status className='red'></Status><Body1 fontSize='1.4'>Refusée</Body1></FlexStatus></td>
+      }
+          <td className="demande"><Body1 fontSize='1.4'>{date.format('DD MMMM, YYYY')}</Body1></td>
+          {demande.additionalData.status === 'new' ? 
+            <td className="demande">                    
+            <WrapperDemandeButton>
+            <Link href={'/devis?initialUser=true'}>
+              <ButtonPrimary bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>Je renseigne les informations</ButtonPrimary>
+            </Link>
+            </WrapperDemandeButton>
+            </td>
+          : demande.additionalData.status === 'document' ?
+          <td className="demande">                    
+            <WrapperDemandeButton>
+              <ButtonPrimary bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>Je renseigne les documents</ButtonPrimary>
+            </WrapperDemandeButton>
+          </td>: demande.additionalData.status === 'validation' ? 
+           <td className="demande">                    
+            <WrapperDemandeButton>
+            </WrapperDemandeButton>                
+            </td>: demande.additionalData.status === 'done' ?
+            <td className="demande">                    
+            <WrapperDemandeButton>
+            </WrapperDemandeButton>          </td>          : 
+            <td className="demande">  
+            <WrapperDemandeButton>
+              <ButtonPrimary bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>Je renseigne les informations</ButtonPrimary>
+            </WrapperDemandeButton>
+                        
+          </td>      }
         </tr>)
       })}
     </table> : 
@@ -158,8 +219,9 @@ const Demandes = () => {
   const [demandes, setDemandes] = useState(null);
 
   const getDevisByUserIdFct = async () => {
-    console.log("user", user);
     const d = await getDevisByUserId(user.uid);
+    if (user?.additionalData?.user)
+      d.push({additionalData: user?.additionalData?.user});
     setDemandes(d)
   }
 

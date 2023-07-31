@@ -1,8 +1,8 @@
-import React from 'react'
-import Conseil from "../components/conseil/index.jsx";
+import React from 'react';
+import Conseil from '../components/conseil/index.jsx';
 
 const ConseilPage = () => {
-    return (<Conseil />);
-}
+  return <Conseil />;
+};
 
-export default ConseilPage
+export default ConseilPage;

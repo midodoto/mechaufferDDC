@@ -1,9 +1,9 @@
-import Image from "next/image.js";
+import Image from 'next/image.js';
 import React from 'react';
 import styled from 'styled-components';
 import profileWhite from '/public/images/profile-white.svg';
 import profile from '/public/images/profile.svg';
-import phone from "../../../public/images/phone.svg";
+import phone from '../../../public/images/phone.svg';
 
 const ButtonComponent = styled.button`
   display: flex;
@@ -34,7 +34,7 @@ const ButtonComponent = styled.button`
     background: ${({ hoverBgColor, theme }) => (!hoverBgColor ? theme.colors.primary : hoverBgColor)};
     border: unset;
     p {
-      color: ${({hoverColor, theme}) => (!hoverColor ? theme.colors.white : hoverColor)};
+      color: ${({ hoverColor, theme }) => (!hoverColor ? theme.colors.white : hoverColor)};
     }
   }
 `;
@@ -44,16 +44,27 @@ const Text = styled.p``;
 /**
  * Primary UI component for user interaction
  */
-export const ButtonConnexion = ({ textColor = '', bgColor= '', hoverColor = '', hoverBgColor = '', children, ...props }) => {
-    return (
-        <ButtonComponent type="button" textColor={textColor} bgColor={bgColor} hoverColor={hoverColor} hoverBgColor={hoverBgColor} {...props}>
-            <div className="profile">
-            </div>
-            <Text>
-                {children}
-            </Text>
-        </ButtonComponent>
-    );
+export const ButtonConnexion = ({
+  textColor = '',
+  bgColor = '',
+  hoverColor = '',
+  hoverBgColor = '',
+  children,
+  ...props
+}) => {
+  return (
+    <ButtonComponent
+      type="button"
+      textColor={textColor}
+      bgColor={bgColor}
+      hoverColor={hoverColor}
+      hoverBgColor={hoverBgColor}
+      {...props}
+    >
+      <div className="profile"></div>
+      <Text>{children}</Text>
+    </ButtonComponent>
+  );
 };
 
 export default ButtonConnexion;

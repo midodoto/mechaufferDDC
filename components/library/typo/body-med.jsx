@@ -8,9 +8,13 @@ const BodyComponent = styled.p`
   font-size: ${({ fontSize }) => (!fontSize ? '1.6' : fontSize)}rem;
   line-height: 2rem;
   color: ${({ color, theme }) => (!color ? theme.colors.typo : color)};
-  opacity: ${({ disable }) => disable ? '0.2': '1'};
+  opacity: ${({ disable }) => (disable ? '0.2' : '1')};
 `;
 
-const BodyMed = ({ children, color = '', fontSize = '', disable = false }) => <BodyComponent color={color} fontSize={fontSize} disable={disable}>{children}</BodyComponent>;
+const BodyMed = ({ children, color = '', fontSize = '', disable = false }) => (
+  <BodyComponent color={color} fontSize={fontSize} disable={disable}>
+    {children}
+  </BodyComponent>
+);
 
 export default BodyMed;

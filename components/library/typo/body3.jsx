@@ -9,6 +9,10 @@ const BodyComponent = styled.p`
   line-height: normal;
 `;
 
-const Body3 = ({ children, color = '', fontSize = '', disable = false, className = '', ...rest }) => <BodyComponent className={className} color={color} fontSize={fontSize} disable={disable} {...rest}>{children}</BodyComponent>;
+const Body3 = ({ children, color = '', fontSize = '', disable = false, className = '', ...rest }) => (
+  <BodyComponent className={className} color={color} fontSize={fontSize} disable={disable} {...rest}>
+    {children}
+  </BodyComponent>
+);
 
 export default Body3;

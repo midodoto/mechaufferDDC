@@ -14,6 +14,10 @@ const H4Component = styled.h4`
   }
 `;
 
-const H4 = ({ children, color = '', fontSize = '' }) => <H4Component color={color} fontSize={fontSize}>{children}</H4Component>;
+const H4 = ({ children, color = '', fontSize = '' }) => (
+  <H4Component color={color} fontSize={fontSize}>
+    {children}
+  </H4Component>
+);
 
 export default H4;

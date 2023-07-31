@@ -1,8 +1,8 @@
-import React from 'react'
-import ForgotPassword from "../components/forgot-password/index.jsx";
+import React from 'react';
+import ForgotPassword from '../components/forgot-password/index.jsx';
 
 const ForgotPasswordPage = () => {
-    return (<ForgotPassword />);
-}
+  return <ForgotPassword />;
+};
 
-export default ForgotPasswordPage
+export default ForgotPasswordPage;

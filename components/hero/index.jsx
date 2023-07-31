@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
-import styled, {ThemeContext} from 'styled-components';
-import H1 from '../library/typo/h1.jsx'
-import H3 from '../library/typo/h3.jsx'
-import heroBg from '/public/images/heroBg.jpg'
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import H1 from '../library/typo/h1.jsx';
+import H3 from '../library/typo/h3.jsx';
+import heroBg from '/public/images/heroBg.jpg';
 import ContactTip from '../contact-tip';
 
 const HeroStyle = styled.div`
@@ -14,7 +14,7 @@ const HeroStyle = styled.div`
 `;
 
 const HeroWrapper = styled.div`
-  max-width: ${({theme}) => theme.layout.xxLargeScreen};
+  max-width: ${({ theme }) => theme.layout.xxLargeScreen};
   margin: auto;
   padding: 0rem 12rem;
   position: relative;
@@ -38,16 +38,19 @@ const HeroWrapper = styled.div`
 `;
 
 const Hero = () => {
-    const themeContext = useContext(ThemeContext)
-    return (
-        <HeroStyle>
-            <HeroWrapper>
-                <H1 color={themeContext.colors.typo}>Chauffez-vous mieux et moins cher avec MeChauffer.fr</H1>
-                <H3 color={themeContext.colors.typo}>Des travaux efficaces, de qualité, un accompagnement de A  à Z ainsi que les meilleures primes vous permettant des travaux à moindre coût.</H3>
-                <ContactTip />
-            </HeroWrapper>
-        </HeroStyle>
-    );
+  const themeContext = useContext(ThemeContext);
+  return (
+    <HeroStyle>
+      <HeroWrapper>
+        <H1 color={themeContext.colors.typo}>Chauffez-vous mieux et moins cher avec MeChauffer.fr</H1>
+        <H3 color={themeContext.colors.typo}>
+          Des travaux efficaces, de qualité, un accompagnement de A à Z ainsi que les meilleures primes vous permettant
+          des travaux à moindre coût.
+        </H3>
+        <ContactTip />
+      </HeroWrapper>
+    </HeroStyle>
+  );
 };
 
 export default Hero;

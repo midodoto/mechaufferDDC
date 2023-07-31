@@ -43,6 +43,8 @@
     "zod-formik-adapter": "^1.2.0"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^2.0.7"
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint-config-prettier": "^8.9.0",
+    "prettier": "3.0.0"
   }
 }

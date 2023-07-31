@@ -1,6 +1,6 @@
-import Image from "next/image.js";
+import Image from 'next/image.js';
 import React from 'react';
-import Body2 from "../library/typo/body2.jsx";
+import Body2 from '../library/typo/body2.jsx';
 import styled from 'styled-components';
 
 const CardsStyle = styled.div`
@@ -17,10 +17,10 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${({ width }) => width ? '1' : '2.6'}rem;
+  gap: ${({ width }) => (width ? '1' : '2.6')}rem;
   border: double 4px transparent;
   background-image: linear-gradient(white, white),
-  ${({ theme, selected }) => selected ? theme.colors.primary : 'linear-gradient(white, white)'};
+    ${({ theme, selected }) => (selected ? theme.colors.primary : 'linear-gradient(white, white)')};
   background-origin: border-box;
   background-clip: content-box, border-box;
   cursor: pointer;
@@ -32,25 +32,49 @@ const Card = styled.div`
     padding: 1.8rem 6.5rem;
   }
   &:hover {
-    background-image: linear-gradient(white, white),
-    ${({ theme }) => theme.colors.primary};
+    background-image: linear-gradient(white, white), ${({ theme }) => theme.colors.primary};
   }
-  opacity: ${({ theme, disable }) => disable ? '0.2' : '1'};
+  opacity: ${({ theme, disable }) => (disable ? '0.2' : '1')};
 `;
 
-const Cards = ({cards, setValue, value, height = '', width = '', typeDevis = null}) => {
-
-    return (
-        <CardsStyle>
-            {cards && cards.map((card, index) => {
-              return (
-                <Card key={index} disable={typeDevis && typeDevis?.value?.find((element) => Array.isArray(element.value) ? element.value.find((elem) => elem.name === card.title) :  element.value.name === card.title) ? true : false} selected={value && value.title === card.title} height={height} width={width} onClick={() => {typeDevis && typeDevis.value.find((element) => Array.isArray(element.value) ? element.value.find((elem) => elem.name === card.title) :  element.value.name === card.title) ? null : setValue(card)}}>
-                    <Body2>{card.title}</Body2>
-                </Card>
-              )
-            })}
-        </CardsStyle>
-    );
+const Cards = ({ cards, setValue, value, height = '', width = '', typeDevis = null }) => {
+  return (
+    <CardsStyle>
+      {cards &&
+        cards.map((card, index) => {
+          return (
+            <Card
+              key={index}
+              disable={
+                typeDevis &&
+                typeDevis?.value?.find((element) =>
+                  Array.isArray(element.value)
+                    ? element.value.find((elem) => elem.name === card.title)
+                    : element.value.name === card.title
+                )
+                  ? true
+                  : false
+              }
+              selected={value && value.title === card.title}
+              height={height}
+              width={width}
+              onClick={() => {
+                typeDevis &&
+                typeDevis.value.find((element) =>
+                  Array.isArray(element.value)
+                    ? element.value.find((elem) => elem.name === card.title)
+                    : element.value.name === card.title
+                )
+                  ? null
+                  : setValue(card);
+              }}
+            >
+              <Body2>{card.title}</Body2>
+            </Card>
+          );
+        })}
+    </CardsStyle>
+  );
 };
 
 export default Cards;

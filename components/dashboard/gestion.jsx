@@ -18,14 +18,14 @@ const Content = styled.div`
 `;
 
 const Gestion = () => {
-    return (
-        <GestionStyle>
-            <Content>
-                <Body>Renseignez vos coordonnées </Body>
-                <br/>
-            </Content>
-        </GestionStyle>
-    );
+  return (
+    <GestionStyle>
+      <Content>
+        <Body>Renseignez vos coordonnées </Body>
+        <br />
+      </Content>
+    </GestionStyle>
+  );
 };
 
 export default Gestion;

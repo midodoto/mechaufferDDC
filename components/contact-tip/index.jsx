@@ -1,7 +1,7 @@
-import Image from "next/image.js";
+import Image from 'next/image.js';
 import React from 'react';
 import styled from 'styled-components';
-import phone from "../../public/images/phone.svg";
+import phone from '../../public/images/phone.svg';
 import Body1 from '../library/typo/body1.jsx';
 
 const ContactTipStyle = styled.div`
@@ -20,15 +20,15 @@ const Text = styled.div`
 `;
 
 const ContactTip = () => {
-    return (
-        <ContactTipStyle>
-            <Image src={phone} alt="logo" width={24} height={24}/>
-            <Text>
-                <Body1>Contactez nous</Body1>
-                <Body1>Du lundi au vendredi de 8h00 à 17h30</Body1>
-            </Text>
-        </ContactTipStyle>
-    );
+  return (
+    <ContactTipStyle>
+      <Image src={phone} alt="logo" width={24} height={24} />
+      <Text>
+        <Body1>Contactez nous</Body1>
+        <Body1>Du lundi au vendredi de 8h00 à 17h30</Body1>
+      </Text>
+    </ContactTipStyle>
+  );
 };
 
 export default ContactTip;

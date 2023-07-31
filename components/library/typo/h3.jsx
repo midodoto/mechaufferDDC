@@ -14,6 +14,10 @@ const H3Component = styled.h3`
   }
 `;
 
-const H3 = ({ children, color = '', fontSize = '', ...rest }) => <H3Component color={color} fontSize={fontSize} {...rest}>{children}</H3Component>;
+const H3 = ({ children, color = '', fontSize = '', ...rest }) => (
+  <H3Component color={color} fontSize={fontSize} {...rest}>
+    {children}
+  </H3Component>
+);
 
 export default H3;

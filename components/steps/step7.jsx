@@ -1,17 +1,17 @@
-import React, {useContext, useState} from 'react';
-import {usePlacesWidget} from "react-google-autocomplete";
-import {useDispatch, useSelector} from "react-redux";
-import {bindActionCreators} from "redux";
-import styled, {ThemeContext} from 'styled-components';
-import Cards from "../cards/index.jsx";
-import ButtonPrimary from "../library/button/primary.jsx";
-import Body1 from "../library/typo/body1.jsx";
-import Body2 from "../library/typo/body2.jsx";
-import H3 from "../library/typo/h3.jsx";
+import React, { useContext, useState } from 'react';
+import { usePlacesWidget } from 'react-google-autocomplete';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import styled, { ThemeContext } from 'styled-components';
+import Cards from '../cards/index.jsx';
+import ButtonPrimary from '../library/button/primary.jsx';
+import Body1 from '../library/typo/body1.jsx';
+import Body2 from '../library/typo/body2.jsx';
+import H3 from '../library/typo/h3.jsx';
 import { DevisActions } from '../../store';
 
 const Step7Style = styled.div`
-  display: ${({ display }) => display ? 'flex' : 'none'};
+  display: ${({ display }) => (display ? 'flex' : 'none')};
   justify-content: center;
   gap: 1.6rem;
   flex-direction: column;
@@ -72,7 +72,7 @@ const InputWrapper = styled.div`
       -webkit-appearance: none;
       margin: 0;
     }
-    &:focus{
+    &:focus {
       outline: none;
     }
     @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
@@ -80,39 +80,63 @@ const InputWrapper = styled.div`
     }
   }
   /* Firefox */
-  input[type=number] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 `;
 
-
 const Step7 = ({ display, setStep }) => {
-    const themeContext = useContext(ThemeContext)
-    const dispatch = useDispatch();
-    const { OverwriteDevis } = bindActionCreators(DevisActions, dispatch);
-    
-    const devisReducer = useSelector(({ devis }) => devis);
-    const [value, setValue] = useState({title: devisReducer.data && devisReducer.data[6] ? devisReducer.data[6].value : null});
-    
-    const { ref } = usePlacesWidget({
-        apiKey: "AIzaSyBONNNhLGUwVS8DpbHQGFJaJCCoLj_6fQU",
-        onPlaceSelected: (place) => setValue({title: place.formatted_address}),
-        options: {types: ['address']}
-    })
-    
-    return (
-        <Step7Style  display={display}>
-            <H3 color={themeContext.colors.black}>Adresse des travaux</H3>
-            <Body2 className={"subtitle"}>Le montant des primes varie en fonction de la localisation du logement</Body2>
-            <InputWrapper>
-                <label htmlFor="surface"><Body1 color={themeContext.colors.black}>Adresse</Body1></label>
-                <input ref={ref} type="text" name={"surface"} id={"surface"} onChange={(e) => {setValue({title: e.target.value})}} value={value.title}/>
-            </InputWrapper>
-            <ButtonWrapper>
-                <ButtonPrimary onClick={() => {OverwriteDevis({step: 7, data: {key: 'Address', value: value.title}}); setStep(8);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!value.title}>Continue</ButtonPrimary>
-            </ButtonWrapper>
-        </Step7Style>
-    );
+  const themeContext = useContext(ThemeContext);
+  const dispatch = useDispatch();
+  const { OverwriteDevis } = bindActionCreators(DevisActions, dispatch);
+
+  const devisReducer = useSelector(({ devis }) => devis);
+  const [value, setValue] = useState({
+    title: devisReducer.data && devisReducer.data[6] ? devisReducer.data[6].value : null,
+  });
+
+  const { ref } = usePlacesWidget({
+    apiKey: 'AIzaSyCFsoDTFaPvR4ddVM9OmjZY65PR5TreQn0',
+    onPlaceSelected: (place) => setValue({ title: place.formatted_address }),
+    options: { types: ['address'] },
+  });
+
+  return (
+    <Step7Style display={display}>
+      <H3 color={themeContext.colors.black}>Adresse des travaux</H3>
+      <Body2 className={'subtitle'}>Le montant des primes varie en fonction de la localisation du logement</Body2>
+      <InputWrapper>
+        <label htmlFor="surface">
+          <Body1 color={themeContext.colors.black}>Adresse</Body1>
+        </label>
+        <input
+          ref={ref}
+          type="text"
+          name={'surface'}
+          id={'surface'}
+          onChange={(e) => {
+            setValue({ title: e.target.value });
+          }}
+          value={value.title}
+        />
+      </InputWrapper>
+      <ButtonWrapper>
+        <ButtonPrimary
+          onClick={() => {
+            OverwriteDevis({ step: 7, data: { key: 'Address', value: value.title } });
+            setStep(8);
+          }}
+          width={'26rem'}
+          bgColor={themeContext.colors.primary}
+          hoverBgColor={themeContext.colors.primary}
+          hoverColor={themeContext.colors.white}
+          disabled={!value.title}
+        >
+          Continue
+        </ButtonPrimary>
+      </ButtonWrapper>
+    </Step7Style>
+  );
 };
 
 export default Step7;

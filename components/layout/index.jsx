@@ -1,5 +1,5 @@
-import {useRouter} from "next/router.js";
-import React, {useEffect} from 'react';
+import { useRouter } from 'next/router.js';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../header';
 import Footer from '../footer';
@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { TokenActions } from '../../store';
 
 const LayoutWrapper = styled.div`
-    position: relative;
+  position: relative;
 `;
 
 const HeaderSticky = styled.div`
@@ -20,33 +20,29 @@ const HeaderSticky = styled.div`
   top: 0;
 `;
 
-const Layout = ({ children }) => {    
-    const router = useRouter()
-    const dispatch = useDispatch();
-    const { TokenParrain, TokenPartenaire } = bindActionCreators(TokenActions, dispatch);
-    
+const Layout = ({ children }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { TokenParrain, TokenPartenaire } = bindActionCreators(TokenActions, dispatch);
 
-    useEffect(() => {
-        if (router.query?.tokenParrain) {
-            TokenParrain(router.query?.tokenParrain);
-        }
-        if (router.query?.tokenPartenaire) {
-            TokenPartenaire(router.query?.tokenPartenaire)
-        }
-       
-    })
+  useEffect(() => {
+    if (router.query?.tokenParrain) {
+      TokenParrain(router.query?.tokenParrain);
+    }
+    if (router.query?.tokenPartenaire) {
+      TokenPartenaire(router.query?.tokenPartenaire);
+    }
+  });
 
-    return (
-        <LayoutWrapper>
-            <HeaderSticky>
-                <Header />
-            </HeaderSticky>
-            {children}
-            {router.pathname !== '/devis' &&
-                <Footer/>
-            }
-        </LayoutWrapper>
-    );
+  return (
+    <LayoutWrapper>
+      <HeaderSticky>
+        <Header />
+      </HeaderSticky>
+      {children}
+      {router.pathname !== '/devis' && <Footer />}
+    </LayoutWrapper>
+  );
 };
 
 export default Layout;

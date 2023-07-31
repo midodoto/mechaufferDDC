@@ -1,16 +1,16 @@
-import React, {useContext, useState} from 'react';
-import styled, {ThemeContext} from 'styled-components';
-import {Formik, Form, Field} from 'formik';
-import * as Yup from "yup";
-import ButtonPrimary from "../library/button/primary.jsx";
+import React, { useContext, useState } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import ButtonPrimary from '../library/button/primary.jsx';
 import MyTextArea from '../library/input/text-area.jsx';
 import MyTextInput from '../library/input/input-text.jsx';
 import MyCheckbox from '../library/input/checkbox.jsx';
-import H2 from "../library/typo/h2.jsx";
+import H2 from '../library/typo/h2.jsx';
 import BodyMed from '../library/typo/body-med.jsx';
 
 const ContactUsStyle = styled.div`
-  max-width: ${({theme}) => theme.layout.xxLargeScreen};
+  max-width: ${({ theme }) => theme.layout.xxLargeScreen};
   margin: auto;
   padding: 7rem 12rem;
   h2 {
@@ -61,89 +61,63 @@ const MessageSent = styled.div`
 `;
 
 const ContactUs = () => {
-    const themeContext = useContext(ThemeContext)
-    const [messageSent, setMessageSent] = useState(false);
-    return (
-        <ContactUsStyle>
-            <H2>Nous contacter</H2>
-            <Formik
-                initialValues={{
-                    lastname: '',
-                    name: '',
-                    email: '',
-                    phone: '',
-                    message: '',
-                    contact: false,
-                }}
-                validationSchema={Yup.object({
-                    name: Yup.string()
-                    .required("Champs obligatoire"),
-                    lastname: Yup.string()
-                    .required("Champs obligatoire"),
-                    phone: Yup.string()
-                    .required("Champs obligatoire"),
-                    message: Yup.string()
-                    .required("Champs obligatoire"),
-                    email: Yup.string()
-                    .email("Invalid email addresss`")
-                    .required("Champs obligatoire"),
-                    acceptedTerms: Yup.boolean()
-                })}
-                onSubmit={(values, actions) => {
-                    actions.setSubmitting(false);
-                    setMessageSent(true);
-                }}
+  const themeContext = useContext(ThemeContext);
+  const [messageSent, setMessageSent] = useState(false);
+  return (
+    <ContactUsStyle>
+      <H2>Nous contacter</H2>
+      <Formik
+        initialValues={{
+          lastname: '',
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+          contact: false,
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string().required('Champs obligatoire'),
+          lastname: Yup.string().required('Champs obligatoire'),
+          phone: Yup.string().required('Champs obligatoire'),
+          message: Yup.string().required('Champs obligatoire'),
+          email: Yup.string().email('Invalid email addresss`').required('Champs obligatoire'),
+          acceptedTerms: Yup.boolean(),
+        })}
+        onSubmit={(values, actions) => {
+          actions.setSubmitting(false);
+          setMessageSent(true);
+        }}
+      >
+        <Form>
+          <FormWrapper>
+            <Flex>
+              <MyTextInput label="Nom" name="lastname" type="text" placeholder="Nom" />
+              <MyTextInput label="Prénom" name="name" type="text" placeholder="Prénom" />
+            </Flex>
+            <Flex>
+              <MyTextInput label="Email Address" name="email" type="email" placeholder="jane@formik.com" />
+              <MyTextInput label="Phone" name="phone" type="phone" placeholder="Phone" />
+            </Flex>
+            <MyTextArea label="Message" name="message" rows="6" placeholder="Message" />
+            <MyCheckbox name="contact">J’autorise Mechauffer.fr à prendre contact avec moi</MyCheckbox>
+            <ButtonPrimary
+              height={'5rem'}
+              bgColor={themeContext.colors.primary}
+              hoverBgColor={themeContext.colors.primary}
+              hoverColor={themeContext.colors.white}
             >
-                <Form>
-                    <FormWrapper>
-                        <Flex>
-                            <MyTextInput
-                                label="Nom"
-                                name="lastname"
-                                type="text"
-                                placeholder="Nom"
-                            />
-                            <MyTextInput
-                                label="Prénom"
-                                name="name"
-                                type="text"
-                                placeholder="Prénom"
-                            />
-                        </Flex>
-                        <Flex>
-                            <MyTextInput
-                                label="Email Address"
-                                name="email"
-                                type="email"
-                                placeholder="jane@formik.com"
-                            />
-                            <MyTextInput
-                                label="Phone"
-                                name="phone"
-                                type="phone"
-                                placeholder="Phone"
-                            />
-                        </Flex>
-                        <MyTextArea
-                            label="Message"
-                            name="message"
-                            rows="6"
-                            placeholder="Message"
-                        />
-                        <MyCheckbox name="contact">
-                            J’autorise Mechauffer.fr à prendre contact avec moi
-                        </MyCheckbox>
-                        <ButtonPrimary  height={"5rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white}>Envoyer</ButtonPrimary>
-                        {messageSent &&
-                            <MessageSent>
-                                <BodyMed color={themeContext.colors.green}>Merci! Votre demande a été envoyée!</BodyMed>
-                            </MessageSent>
-                        }
-                    </FormWrapper>
-                </Form>
-            </Formik>
-        </ContactUsStyle>
-    );
+              Envoyer
+            </ButtonPrimary>
+            {messageSent && (
+              <MessageSent>
+                <BodyMed color={themeContext.colors.green}>Merci! Votre demande a été envoyée!</BodyMed>
+              </MessageSent>
+            )}
+          </FormWrapper>
+        </Form>
+      </Formik>
+    </ContactUsStyle>
+  );
 };
 
 export default ContactUs;

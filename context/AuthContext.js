@@ -1,78 +1,70 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import {
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-} from 'firebase/auth'
-import {auth, authSecond, getUserById} from '../config/firebase'
+import { createContext, useContext, useEffect, useState } from 'react';
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, authSecond, getUserById } from '../config/firebase';
 
-const AuthContext = createContext({})
+const AuthContext = createContext({});
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext);
 
-export const AuthContextProvider = ({children,}) => {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-    
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            try {
-                if (user) {
-                    console.log("USERRR", user)
-                    const userDetail = await getUserById(user.uid);
-                    console.log("userDetail", userDetail)
-                    setUser({
-                        uid: user.uid,
-                        ...userDetail,
-                    })
-                } else {
-                    setUser(null)
-                }
-                setLoading(false)
-            } catch (e) {
-                logout();
-                console.log("GHASSAN");
-            }
+export const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-        })
-        
-        return () => unsubscribe()
-    }, [])
-    
-    const signup = (email, password, second = false) => {
-        if (second === false)
-            return createUserWithEmailAndPassword(auth, email, password)
-            else {
-                console.log("PLEASEEEE");
-            return createUserWithEmailAndPassword(authSecond, email, password)
-            }
-
-    }
-
-    
-    const login = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
-    }
-
-    const updateUser = async (userId) => {
-        const userDetail = await getUserById(userId);
-        setUser({
-            uid: userId,
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      try {
+        if (user) {
+          const userDetail = await getUserById(user.uid);
+          setUser({
+            uid: user.uid,
             ...userDetail,
-        })
-    }
+          });
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      } catch (e) {
+        logout();
+      }
+    });
 
+    return () => unsubscribe();
+  }, []);
 
-    
-    const logout = async () => {
-        setUser(null)
-        await signOut(auth)
+  const removeParrainFirstUserState = () => {
+    const cpyUser = { ...user };
+    cpyUser.additionalData.user = null;
+    // user.additional
+    setUser(cpyUser);
+  };
+
+  const signup = (email, password, second = false) => {
+    if (second === false) return createUserWithEmailAndPassword(auth, email, password);
+    else {
+      return createUserWithEmailAndPassword(authSecond, email, password);
     }
-    
-    return (
-        <AuthContext.Provider value={{ user, login, signup, logout, updateUser }}>
-            {loading ? null : children}
-        </AuthContext.Provider>
-    )
-}
+  };
+
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateUser = async (userId) => {
+    const userDetail = await getUserById(userId);
+    setUser({
+      uid: userId,
+      ...userDetail,
+    });
+  };
+
+  const logout = async () => {
+    setUser(null);
+    await signOut(auth);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, signup, logout, updateUser, removeParrainFirstUserState }}>
+      {loading ? null : children}
+    </AuthContext.Provider>
+  );
+};

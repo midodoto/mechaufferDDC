@@ -1,10 +1,8 @@
-import React from 'react'
-import DashboardPartenaire from "../components/dashboard-partenaire";
+import React from 'react';
+import DashboardPartenaire from '../components/dashboard-partenaire';
 
 const DashboardPartenairePage = () => {
-    return (
-        <DashboardPartenaire />
-    )
-}
+  return <DashboardPartenaire />;
+};
 
-export default DashboardPartenairePage
+export default DashboardPartenairePage;

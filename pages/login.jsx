@@ -1,16 +1,16 @@
-import Link from "next/link.js";
-import { useRouter } from 'next/router'
-import React, { useState, useContext } from 'react'
-import styled, {ThemeContext} from "styled-components";
-import ButtonPrimary from "../components/library/button/primary.jsx";
-import Body1 from "../components/library/typo/body1.jsx";
-import Body2 from "../components/library/typo/body1.jsx";
-import H3 from "../components/library/typo/h3.jsx";
-import { useAuth } from '../context/AuthContext'
-import {getUserById} from "../config/firebase.js";
+import Link from 'next/link.js';
+import { useRouter } from 'next/router';
+import React, { useState, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import ButtonPrimary from '../components/library/button/primary.jsx';
+import Body1 from '../components/library/typo/body1.jsx';
+import Body2 from '../components/library/typo/body1.jsx';
+import H3 from '../components/library/typo/h3.jsx';
+import { useAuth } from '../context/AuthContext';
+import { getUserById } from '../config/firebase.js';
 
 const LoginStyle = styled.div`
-  max-width: ${({theme}) => theme.layout.xxLargeScreen};
+  max-width: ${({ theme }) => theme.layout.xxLargeScreen};
   margin: auto;
   padding: 7rem 12rem;
   background: ${({ theme }) => theme.colors.blue2};
@@ -59,12 +59,12 @@ const InputWrapper = styled.div`
       -webkit-appearance: none;
       margin: 0;
     }
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
   /* Firefox */
-  input[type=number] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 `;
@@ -84,82 +84,100 @@ const Error = styled.div`
 `;
 
 const Login = () => {
-    const themeContext = useContext(ThemeContext)
-    const router = useRouter()
-    const { user, login } = useAuth()
-    const [data, setData] = useState({
-        email: '',
-        password: '',
-    })
+  const themeContext = useContext(ThemeContext);
+  const router = useRouter();
+  const { user, login } = useAuth();
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
 
-    const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
-    const handleLogin = async (e) => {
-        e.preventDefault()
-        
-        try {
-            const usr = await login(data.email, data.password); 
-            console.log("usr", usr.user.uid);
-
-            const userDetail = await getUserById(usr.user.uid) 
-            console.log("userDetail", userDetail);
-            
-            if (userDetail.additionalData.role === "user")
-                router.push('/dashboard-user');
-            else if (userDetail.additionalData.role === "parrain")
-                router.push('/dashboard');
-            else
-                router.push('/dashboard-partenaire');
-    
-        } catch (err) {
-          setError('email ou mot de passe incorect');
-        }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const usr = await login(data.email, data.password);
+      const userDetail = await getUserById(usr.user.uid);
+      if (userDetail.additionalData.role === 'user') router.push('/dashboard-user');
+      else if (userDetail.additionalData.role === 'parrain') router.push('/dashboard');
+      else router.push('/dashboard-partenaire');
+    } catch (err) {
+      setError('email ou mot de passe incorect');
     }
-    
-    return (
-        <LoginStyle>
-            <Wrapper>
-            
-            <H3 color={themeContext.colors.black}>Bienvenue !</H3>
-            <Body2 color={themeContext.colors.black} className={"subtitle"}>Merci de renseigner votre email pour vous connecter</Body2>
-            <form onSubmit={handleLogin}>
-                <InputWrapper>
-                    <label htmlFor="email"><Body1 color={themeContext.colors.black}>Email address</Body1></label>
-                    <input type="email" required name={"email"} id={"email"} value={data.email} onChange={(e) =>
-                        setData({
-                            ...data,
-                            email: e.target.value,
-                        })
-                    }/>
-                </InputWrapper>
-                <InputWrapper>
-                    <label htmlFor="password"><Body1 color={themeContext.colors.black}>Password</Body1></label>
-                    <input type="password" required name={"password"} id={"password"} value={data.password} onChange={(e) =>
-                        setData({
-                            ...data,
-                            password: e.target.value,
-                        })
-                    }/>
-                </InputWrapper>
-                <ButtonPrimary type="submit" width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={false}>Login</ButtonPrimary>
-            </form>
-                <ForgetMdp>
-                    <Link href={"forgot-password"}>
-                        <Body1 fontSize={1.4} color={themeContext.colors.black}>Mot de passe oublier ?</Body1>
-                    </Link>
-                </ForgetMdp>
-                {error &&
-                  <Error>
-                      {error}
-                  </Error>
-                }
-                <Signup>
-                    <Body1 fontSize={1.4} color={themeContext.colors.black}>Vous n’avez pas encore de compte ? <Link href={"/signup"}>Cliquez-ici</Link> pour en créer un.</Body1>
-                </Signup>
-            </Wrapper>
+  };
 
-        </LoginStyle>
-    )
-}
+  return (
+    <LoginStyle>
+      <Wrapper>
+        <H3 color={themeContext.colors.black}>Bienvenue !</H3>
+        <Body2 color={themeContext.colors.black} className={'subtitle'}>
+          Merci de renseigner votre email pour vous connecter
+        </Body2>
+        <form onSubmit={handleLogin}>
+          <InputWrapper>
+            <label htmlFor="email">
+              <Body1 color={themeContext.colors.black}>Email address</Body1>
+            </label>
+            <input
+              type="email"
+              required
+              name={'email'}
+              id={'email'}
+              value={data.email}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  email: e.target.value,
+                })
+              }
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <label htmlFor="password">
+              <Body1 color={themeContext.colors.black}>Password</Body1>
+            </label>
+            <input
+              type="password"
+              required
+              name={'password'}
+              id={'password'}
+              value={data.password}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  password: e.target.value,
+                })
+              }
+            />
+          </InputWrapper>
+          <ButtonPrimary
+            type="submit"
+            width={'26rem'}
+            bgColor={themeContext.colors.primary}
+            hoverBgColor={themeContext.colors.primary}
+            hoverColor={themeContext.colors.white}
+            disabled={false}
+          >
+            Login
+          </ButtonPrimary>
+        </form>
+        <ForgetMdp>
+          <Link href={'forgot-password'}>
+            <Body1 fontSize={1.4} color={themeContext.colors.black}>
+              Mot de passe oublier ?
+            </Body1>
+          </Link>
+        </ForgetMdp>
+        {error && <Error>{error}</Error>}
+        <Signup>
+          <Body1 fontSize={1.4} color={themeContext.colors.black}>
+            Vous n’avez pas encore de compte ? <Link href={'/signup'}>Cliquez-ici</Link> pour en créer un.
+          </Body1>
+        </Signup>
+      </Wrapper>
+    </LoginStyle>
+  );
+};
 
-export default Login
+export default Login;

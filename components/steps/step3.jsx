@@ -1,15 +1,15 @@
-import React, {useContext, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {bindActionCreators} from "redux";
-import styled, {ThemeContext} from 'styled-components';
-import ButtonPrimary from "../library/button/primary.jsx";
-import Body1 from "../library/typo/body1.jsx";
-import Body2 from "../library/typo/body2.jsx";
-import H3 from "../library/typo/h3.jsx";
+import React, { useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import styled, { ThemeContext } from 'styled-components';
+import ButtonPrimary from '../library/button/primary.jsx';
+import Body1 from '../library/typo/body1.jsx';
+import Body2 from '../library/typo/body2.jsx';
+import H3 from '../library/typo/h3.jsx';
 import { DevisActions } from '../../store';
 
 const Step3Style = styled.div`
-  display: ${({ display }) => display ? 'flex' : 'none'};
+  display: ${({ display }) => (display ? 'flex' : 'none')};
   justify-content: center;
   gap: 1.6rem;
   flex-direction: column;
@@ -70,7 +70,7 @@ const InputWrapper = styled.div`
       -webkit-appearance: none;
       margin: 0;
     }
-    &:focus{
+    &:focus {
       outline: none;
     }
     @media ${({ theme }) => theme.breakpoints.tablets_reverse} {
@@ -78,31 +78,46 @@ const InputWrapper = styled.div`
     }
   }
   /* Firefox */
-  input[type=number] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 `;
 
 const Step3 = ({ display, setStep }) => {
-    const themeContext = useContext(ThemeContext)
-    const dispatch = useDispatch();
-    const { OverwriteDevis } = bindActionCreators(DevisActions, dispatch);
-    
-    const devisReducer = useSelector(({ devis }) => devis);
-    const [value, setValue] = useState(devisReducer.data && devisReducer.data[2] ? devisReducer.data[2].value : null);
-    return (
-        <Step3Style  display={display}>
-            <H3 color={themeContext.colors.black}>Quelle est la surface habitable de votre logement ?</H3>
-            <Body2 className={"subtitle"}></Body2>
-            <InputWrapper>
-                <label htmlFor="surface"><Body1 color={themeContext.colors.black}>Surface en m </Body1><span>2</span></label>
-                <input type="number" name={"surface"} id={"surface"} onChange={(e) => setValue(e.target.value)} value={value}/>
-            </InputWrapper>
-            <ButtonWrapper>
-                <ButtonPrimary onClick={() => {OverwriteDevis({step: 3, data: {key: 'Surface', value}}); setStep(4);}} width={"26rem"} bgColor={themeContext.colors.primary} hoverBgColor={themeContext.colors.primary} hoverColor={themeContext.colors.white} disabled={!value}>Continue</ButtonPrimary>
-            </ButtonWrapper>
-        </Step3Style>
-    );
+  const themeContext = useContext(ThemeContext);
+  const dispatch = useDispatch();
+  const { OverwriteDevis } = bindActionCreators(DevisActions, dispatch);
+
+  const devisReducer = useSelector(({ devis }) => devis);
+  const [value, setValue] = useState(devisReducer.data && devisReducer.data[2] ? devisReducer.data[2].value : null);
+  return (
+    <Step3Style display={display}>
+      <H3 color={themeContext.colors.black}>Quelle est la surface habitable de votre logement ?</H3>
+      <Body2 className={'subtitle'}></Body2>
+      <InputWrapper>
+        <label htmlFor="surface">
+          <Body1 color={themeContext.colors.black}>Surface en m </Body1>
+          <span>2</span>
+        </label>
+        <input type="number" name={'surface'} id={'surface'} onChange={(e) => setValue(e.target.value)} value={value} />
+      </InputWrapper>
+      <ButtonWrapper>
+        <ButtonPrimary
+          onClick={() => {
+            OverwriteDevis({ step: 3, data: { key: 'Surface', value } });
+            setStep(4);
+          }}
+          width={'26rem'}
+          bgColor={themeContext.colors.primary}
+          hoverBgColor={themeContext.colors.primary}
+          hoverColor={themeContext.colors.white}
+          disabled={!value}
+        >
+          Continue
+        </ButtonPrimary>
+      </ButtonWrapper>
+    </Step3Style>
+  );
 };
 
 export default Step3;

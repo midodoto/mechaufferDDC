@@ -8,8 +8,8 @@ import { createWrapper } from 'next-redux-wrapper';
 import rootReducer from './reducers';
 
 const persistConfig = {
-    key: 'root',
-    storage,
+  key: 'root',
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

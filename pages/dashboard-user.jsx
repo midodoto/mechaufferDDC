@@ -1,10 +1,8 @@
-import React from 'react'
-import DashboardUser from "../components/dashboard-user";
+import React from 'react';
+import DashboardUser from '../components/dashboard-user';
 
 const DashboardUserPage = () => {
-    return (
-        <DashboardUser />
-    )
-}
+  return <DashboardUser />;
+};
 
-export default DashboardUserPage
+export default DashboardUserPage;

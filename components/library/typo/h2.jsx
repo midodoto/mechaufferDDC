@@ -14,6 +14,10 @@ const H2Component = styled.h2`
   }
 `;
 
-const H2 = ({ children, color = '', fontSize = '' }) => <H2Component color={color} fontSize={fontSize}>{children}</H2Component>;
+const H2 = ({ children, color = '', fontSize = '' }) => (
+  <H2Component color={color} fontSize={fontSize}>
+    {children}
+  </H2Component>
+);
 
 export default H2;

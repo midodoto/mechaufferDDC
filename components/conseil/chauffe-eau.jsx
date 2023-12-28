@@ -114,6 +114,8 @@ const ConseilStyle = styled.div`
 `;
 
 const Section1 = styled.div`
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   h2 {
     text-align: center;
   }
@@ -315,9 +317,6 @@ const Work1 = styled.div`
   gap: 2rem;
   flex-direction: column;
   justify-content: space-between;
-  a {
-    align-self: center;
-  }
 `;
 
 const Work2 = styled.div`
@@ -327,9 +326,6 @@ const Work2 = styled.div`
   gap: 2rem;
   flex-direction: column;
   justify-content: space-between;
-  a {
-    align-self: center;
-  }
 `;
 
 const Work3 = styled.div`
@@ -339,9 +335,6 @@ const Work3 = styled.div`
   gap: 2rem;
   flex-direction: column;
   justify-content: space-between;
-  a {
-    align-self: center;
-  }
 `;
 
 const Work4 = styled.div`
@@ -351,16 +344,12 @@ const Work4 = styled.div`
   gap: 2rem;
   flex-direction: column;
   justify-items: center;
-  justify-content: space-between;
-  a {
-    align-self: center;
-  }
 `;
 
 const TypeWorks = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 4rem;
   margin-top: 4rem;
   background-color: #f1f5ff;
   border-radius: 1.2rem;
@@ -387,9 +376,9 @@ const Hero = () => {
     <HeroStyle>
       <HeroWrapper>
         <H2 color={'#FFFFFF'}>
-          Jusqu’à 25% d’économies
+          Jusqu’à 60% d’économies
           <br />
-          en isolant vos murs !
+          en installant une ventilation !
         </H2>
         <Body color={'#FFFFFF'}>Profitez de notre offre ...</Body>
       </HeroWrapper>
@@ -404,21 +393,21 @@ const Conseil = () => {
       <Hero />
       <Content>
         <Section1>
-          <H2>Comment bien choisir son isolation ?</H2>
+          <H2>Comment bien ventiler son logement ?</H2>
           <TypeWorks>
             <Work1>
               <ImgWrapper>
                 <SmallImage src="/images/conseil/1.png" />
               </ImgWrapper>
-              <Body>ISOLATION</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant l'isolation</BodyMed>
-              <Link href="/conseil/isolation">
+              <Body>Chauffe-eau solaire</Body>
+              <BodyMed>Retrouvez tous nos conseils concernant le chauffe-eau solaire.</BodyMed>
+              <Link href="/travaux/chauffe-eau-solaire">
                 <ButtonPrimary
                   bgColor={themeContext.colors.primary}
                   hoverBgColor={themeContext.colors.primary}
                   hoverColor={themeContext.colors.white}
                 >
-                  Isoler ma maison
+                  En savoir plus
                 </ButtonPrimary>
               </Link>
             </Work1>
@@ -426,66 +415,18 @@ const Conseil = () => {
               <ImgWrapper>
                 <SmallImage src="/images/conseil/2.png" />
               </ImgWrapper>
-              <Body>POMPE A CHALEUR</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre pompe à chaleur</BodyMed>
-              <Link href="/conseil/pompe-a-chaleur">
+              <Body>Chauffe-eau thermodynamique</Body>
+              <BodyMed>Retrouvez tous nos conseils concernant le chauffe-eau thermodynamique.</BodyMed>
+              <Link href="/travaux/chauffe-eau-thermodynamique">
                 <ButtonPrimary
                   bgColor={themeContext.colors.primary}
                   hoverBgColor={themeContext.colors.primary}
                   hoverColor={themeContext.colors.white}
                 >
-                  Changer mon chauffage
+                  En savoir plus
                 </ButtonPrimary>
               </Link>
             </Work2>
-            <Work3>
-              <ImgWrapper>
-                <SmallImage src="/images/conseil/3.png" />
-              </ImgWrapper>
-              <Body>CHAUFFE-EAU</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre chauffe-eau.</BodyMed>
-              <Link href="/conseil/chauffe-eau">
-                <ButtonPrimary
-                  bgColor={themeContext.colors.primary}
-                  hoverBgColor={themeContext.colors.primary}
-                  hoverColor={themeContext.colors.white}
-                >
-                  Changer mon chauffage à bois
-                </ButtonPrimary>
-              </Link>
-            </Work3>
-            <Work3>
-              <ImgWrapper>
-                <SmallImage src="/images/conseil/3.png" />
-              </ImgWrapper>
-              <Body>CHAUFFAGE A BOIS</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre chauffage a bois.</BodyMed>
-              <Link href="/conseil/chauffage-a-bois">
-                <ButtonPrimary
-                  bgColor={themeContext.colors.primary}
-                  hoverBgColor={themeContext.colors.primary}
-                  hoverColor={themeContext.colors.white}
-                >
-                  Changer mon chauffage à bois
-                </ButtonPrimary>
-              </Link>
-            </Work3>
-            <Work4>
-              <ImgWrapper>
-                <SmallImage src="/images/conseil/4.png" />
-              </ImgWrapper>
-              <Body>VENTILATION</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre ventilation.</BodyMed>
-              <Link href="/conseil/ventilation">
-                <ButtonPrimary
-                  bgColor={themeContext.colors.primary}
-                  hoverBgColor={themeContext.colors.primary}
-                  hoverColor={themeContext.colors.white}
-                >
-                  Changer ma ventilation
-                </ButtonPrimary>
-              </Link>
-            </Work4>
           </TypeWorks>
         </Section1>
         <Section2>

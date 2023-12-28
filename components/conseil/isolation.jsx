@@ -114,6 +114,8 @@ const ConseilStyle = styled.div`
 `;
 
 const Section1 = styled.div`
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   h2 {
     text-align: center;
   }
@@ -360,7 +362,7 @@ const Work4 = styled.div`
 const TypeWorks = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 4rem;
   margin-top: 4rem;
   background-color: #f1f5ff;
   border-radius: 1.2rem;
@@ -410,15 +412,15 @@ const Conseil = () => {
               <ImgWrapper>
                 <SmallImage src="/images/conseil/1.png" />
               </ImgWrapper>
-              <Body>ISOLATION</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant l'isolation</BodyMed>
-              <Link href="/conseil/isolation">
+              <Body>Isolation du sol</Body>
+              <BodyMed>Retrouvez tous nos conseils concernant l'isolation du sol</BodyMed>
+              <Link href="/travaux/isolation-du-sol">
                 <ButtonPrimary
                   bgColor={themeContext.colors.primary}
                   hoverBgColor={themeContext.colors.primary}
                   hoverColor={themeContext.colors.white}
                 >
-                  Isoler ma maison
+                  En savoir plus
                 </ButtonPrimary>
               </Link>
             </Work1>
@@ -426,15 +428,15 @@ const Conseil = () => {
               <ImgWrapper>
                 <SmallImage src="/images/conseil/2.png" />
               </ImgWrapper>
-              <Body>POMPE A CHALEUR</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre pompe à chaleur</BodyMed>
-              <Link href="/conseil/pompe-a-chaleur">
+              <Body>Isolation des combles</Body>
+              <BodyMed>Retrouvez tous nos conseils concernant l’isolation des combles.</BodyMed>
+              <Link href="/travaux/isolation-des-combles">
                 <ButtonPrimary
                   bgColor={themeContext.colors.primary}
                   hoverBgColor={themeContext.colors.primary}
                   hoverColor={themeContext.colors.white}
                 >
-                  Changer mon chauffage
+                  En savoir plus
                 </ButtonPrimary>
               </Link>
             </Work2>
@@ -442,31 +444,15 @@ const Conseil = () => {
               <ImgWrapper>
                 <SmallImage src="/images/conseil/3.png" />
               </ImgWrapper>
-              <Body>CHAUFFE-EAU</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre chauffe-eau.</BodyMed>
-              <Link href="/conseil/chauffe-eau">
+              <Body>Isolation des murs</Body>
+              <BodyMed>Retrouvez tous nos conseils concernant l’isolation des murs.</BodyMed>
+              <Link href="/travaux/isolation-des-murs">
                 <ButtonPrimary
                   bgColor={themeContext.colors.primary}
                   hoverBgColor={themeContext.colors.primary}
                   hoverColor={themeContext.colors.white}
                 >
-                  Changer mon chauffage à bois
-                </ButtonPrimary>
-              </Link>
-            </Work3>
-            <Work3>
-              <ImgWrapper>
-                <SmallImage src="/images/conseil/3.png" />
-              </ImgWrapper>
-              <Body>CHAUFFAGE A BOIS</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre chauffage a bois.</BodyMed>
-              <Link href="/conseil/chauffage-a-bois">
-                <ButtonPrimary
-                  bgColor={themeContext.colors.primary}
-                  hoverBgColor={themeContext.colors.primary}
-                  hoverColor={themeContext.colors.white}
-                >
-                  Changer mon chauffage à bois
+                  En savoir plus
                 </ButtonPrimary>
               </Link>
             </Work3>
@@ -474,15 +460,15 @@ const Conseil = () => {
               <ImgWrapper>
                 <SmallImage src="/images/conseil/4.png" />
               </ImgWrapper>
-              <Body>VENTILATION</Body>
-              <BodyMed>Retrouvez tous nos conseils concernant votre ventilation.</BodyMed>
-              <Link href="/conseil/ventilation">
+              <Body>Remplacement des fenêtres</Body>
+              <BodyMed>Retrouvez tous nos conseils concernant le remplacement des fenêtres.</BodyMed>
+              <Link href="/travaux/remplacement-des-fenetres">
                 <ButtonPrimary
                   bgColor={themeContext.colors.primary}
                   hoverBgColor={themeContext.colors.primary}
                   hoverColor={themeContext.colors.white}
                 >
-                  Changer ma ventilation
+                  En savoir plus
                 </ButtonPrimary>
               </Link>
             </Work4>
